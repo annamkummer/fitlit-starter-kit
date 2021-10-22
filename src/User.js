@@ -29,16 +29,26 @@ class User {
   }
 
   findOuncesByWeek(hydrationData, date) {
-    return hydrationData.reduce((ouncesPerDay, entry) => {
-      if ((entry.userID === this.id) && (entry.date <= date)) {
-        ouncesPerDay.push(entry.numOunces);
-        if (ouncesPerDay.length > 7) {
-          ouncesPerDay.shift();
-        }
-      }
-      return ouncesPerDay;
-    }, [])
-  };
+   const userEntries = hydrationData.filter(entry => {
+     return entry.userID === this.id
+   }).sort(function(a,b){
+     const dateA = new Date(a.date), dateB = new Date(b.date)
+     return dateB-dateA
+   });
+console.log(userEntries);
+
+
+ //   const firstEntry = userEntries.find(entry => {
+ //     return entry.date === date;
+ //   });
+ //
+ //   const index = userEntries.indexOf(firstEntry);
+ //   const ouncesPerDay = userEntries.slice(index, (index+7)).map( (entry) => {
+ //     return entry.numOunces
+ //   });
+ //   return ouncesPerDay;
+ // };
+
 
   findSleepQualityByDate(sleepData, date) {
     return sleepData.find(entry => {

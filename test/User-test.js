@@ -77,12 +77,12 @@ describe('User', () => {
     },
     {
       "userID": 1,
-      "date":"2019/06/17",
+      "date":"2019/06/18",
       "numOunces":96
     },
     {
       "userID": 1,
-      "date": "2019/06/18",
+      "date": "2019/06/17",
       "numOunces": 37
     },
     {
@@ -207,7 +207,7 @@ describe('User', () => {
   })
 
   it('should return ounces consumed per day for selected week', function () {
-    expect(user1.findOuncesByWeek(hydrationData,"2019/06/21")).to.deep.equal([37,69,96,37,69,96,69])
+    expect(user1.findOuncesByWeek(hydrationData,"2019/06/16")).to.deep.equal([69,96,37,69,96,69,96])
   })
 
   it('should calculate the average number of hours slept per day', function () {
