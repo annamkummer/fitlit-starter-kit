@@ -43,7 +43,7 @@ describe('User', () => {
     expect(user.displayFirstName()).to.equal('Luisa');
   });
 
-  let userData, hydrationData, sleepData, user1, user2;
+  let userData, hydrationData, sleepData, activityData, user1, user2;
 
   beforeEach(function() {
     userData = [{
@@ -186,6 +186,84 @@ describe('User', () => {
       "date": "2019/06/17",
       "hoursSlept": 1,
       "sleepQuality": 2.2
+    }
+    ];
+    activityData = [{
+      "userID": 1,
+      "date": "2019/06/15",
+      "numSteps": 3577,
+      "minutesActive": 140,
+      "flightsOfStairs": 16
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/16",
+      "numSteps": 6637,
+      "minutesActive": 175,
+      "flightsOfStairs": 37
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/17",
+      "numSteps": 14329,
+      "minutesActive": 168,
+      "flightsOfStairs": 18
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/18",
+      "numSteps": 4419,
+      "minutesActive": 165,
+      "flightsOfStairs": 33
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/19",
+      "numSteps": 8429,
+      "minutesActive": 243,
+      "flightsOfStairs": 44
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/20",
+      "numSteps": 14478,
+      "minutesActive": 140,
+      "flightsOfStairs": 12
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/21",
+      "numSteps": 6760,
+      "minutesActive": 135,
+      "flightsOfStairs": 6
+    },
+    {
+      "userID": 1,
+      "date": "2019/06/22",
+      "numSteps": 10289,
+      "minutesActive": 119,
+      "flightsOfStairs": 6
+    },
+    {
+      "userID": 2,
+      "date": "2019/06/15",
+      "numSteps": 4294,
+      "minutesActive": 138,
+      "flightsOfStairs": 10
+    },
+    {
+      "userID": 2,
+      "date": "2019/06/16",
+      "numSteps": 4112,
+      "minutesActive": 220,
+      "flightsOfStairs": 37
+    },
+    {
+      "userID": 2,
+      "date": "2019/06/17",
+      "numSteps": 13750,
+      "minutesActive": 65,
+      "flightsOfStairs": 4
     }
     ];
     user1 = new User(userData[0]);
