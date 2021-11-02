@@ -24,6 +24,44 @@ class UserRepository {
 
     return Number(average.toFixed(2))
   }
+
+// AKU START ========================
+  calculateAvgStairsClimbed(activityData, date) {
+    const sum = activityData.reduce((stairs, entry) => {
+      if (entry.date === date) {
+        stairs.stairs += entry.flightsOfStairs;
+        stairs.count += 1;
+      }
+      return stairs;
+    }, {stairs: 0, count: 0});
+    const avg = sum.stairs / sum.count;
+    return Number(avg.toFixed(2))
+  }
+
+  calculateAvgStepsTaken(activityData, date) {
+    const sum = activityData.reduce((steps, entry) => {
+      if (entry.date === date) {
+        steps.steps += entry.numSteps;
+        steps.count += 1;
+      }
+      return steps;
+    }, {steps: 0, count: 0});
+    const avg = sum.steps / sum.count;
+    return Number(avg.toFixed(2))
+  }
+
+  calculateAvgMinActive(activityData, date) {
+    const sum = activityData.reduce((minutes, entry) => {
+      if (entry.date === date) {
+        minutes.minutes += entry.minutesActive;
+        minutes.count += 1;
+      }
+      return minutes;
+    }, {minutes: 0, count: 0});
+    const avg = sum.minutes / sum.count;
+    return Number(avg.toFixed(2))
+  }
+// AKU END =========================
 }
 
 export default UserRepository;
