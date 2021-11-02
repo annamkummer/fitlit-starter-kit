@@ -323,4 +323,10 @@ describe('User', () => {
     const userRepository = new UserRepository(userData);
     expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
   })
+
+  it('should tell user if they reached their step goal for a specified date', function() {
+    expect(user1.reachedDailyStepGoal(activityData, "2019/06/15")).to.equal(false)
+    expect(user1.reachedDailyStepGoal(activityData, "2019/06/20")).to.equal(true)
+    expect(user2.reachedDailyStepGoal(activityData, "2019/06/17")).to.equal(true)
+  })
 });

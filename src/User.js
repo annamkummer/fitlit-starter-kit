@@ -97,6 +97,17 @@ class User {
       return hoursPerDay;
     }, [])
   }
+
+  reachedDailyStepGoal(activityInfo, date) {
+    const currentUser = activityInfo.find(entry => {
+      return entry.userID === this.id && entry.date === date;
+    })
+    if (currentUser.numSteps > this.dailyStepGoal) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 export default User;
