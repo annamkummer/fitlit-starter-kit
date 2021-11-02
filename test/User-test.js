@@ -323,4 +323,10 @@ describe('User', () => {
     const userRepository = new UserRepository(userData);
     expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
   })
+
+  // AKU START ========================
+  it('should find stair climbing record for single user', function () {
+    expect(user1.findStairRecord(activityData)).to.equal(44);
+  })
+  // AKU END =========================
 });

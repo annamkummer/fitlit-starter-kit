@@ -97,6 +97,17 @@ class User {
       return hoursPerDay;
     }, [])
   }
+
+  // AKU START ========================
+  findStairRecord(activityData) {
+    return activityData.reduce((stairRecord, entry) => {
+      if (entry.flightsOfStairs > stairRecord) {
+        stairRecord = entry.flightsOfStairs;
+      }
+      return stairRecord;
+    }, 0)
+  }
+  // AKU END =========================
 }
 
 export default User;
