@@ -324,10 +324,20 @@ describe('User', () => {
     expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
   })
 
-  // AKU START ========================
+  it('should tell user if they reached their step goal for a specified date', function() {
+    expect(user1.reachedDailyStepGoal(activityData, "2019/06/15")).to.equal(false)
+    expect(user1.reachedDailyStepGoal(activityData, "2019/06/20")).to.equal(true)
+    expect(user2.reachedDailyStepGoal(activityData, "2019/06/17")).to.equal(true)
+  })
+
+  it('should provide user with a list of days their step goal was exceeded', function() {
+    expect(user1.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17", "2019/06/20", "2019/06/22"])
+    expect(user2.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17"])
+  })
+
   it('should find stair climbing record for single user', function () {
     expect(user1.findStairRecord(activityData)).to.equal(44);
     expect(user2.findStairRecord(activityData)).to.equal(37);
   })
-  // AKU END =========================
+
 });

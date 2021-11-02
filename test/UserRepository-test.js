@@ -35,7 +35,6 @@ describe('User Repository', () => {
       }]
     userRepository = new UserRepository(userData);
 
-// AKU START ========================
     activityData = [{
       "userID": 1,
       "date": "2019/06/15",
@@ -100,7 +99,7 @@ describe('User Repository', () => {
       "flightsOfStairs": 10
     },
     ];
-// AKU END =========================
+
   });
 
   it('should be a function', function () {
@@ -116,7 +115,6 @@ describe('User Repository', () => {
     expect(userRepository.calculateAvgStepGoal()).to.equal(6666.67);
   });
 
-  // AKU START ========================
   it('should return average stairs climbed on specific date among all users', function () {
     expect(userRepository.calculateAvgStairsClimbed(activityData, '2019/06/15')).to.equal(18.33);
   })
@@ -128,5 +126,4 @@ describe('User Repository', () => {
   it('should return average minutes active on specific date among all users', function () {
     expect(userRepository.calculateAvgMinActive(activityData, '2019/06/17')).to.equal(148.67);
   })
-  // AKU END =========================
 });

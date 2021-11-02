@@ -25,7 +25,6 @@ class UserRepository {
     return Number(average.toFixed(2))
   }
 
-// AKU START ========================
   calculateAvgStairsClimbed(activityData, date) {
     const sum = activityData.reduce((stairs, entry) => {
       if (entry.date === date) {
@@ -61,7 +60,7 @@ class UserRepository {
     const avg = sum.minutes / sum.count;
     return Number(avg.toFixed(2))
   }
-// AKU END =========================
+
 }
 
 export default UserRepository;

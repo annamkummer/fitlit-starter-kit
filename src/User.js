@@ -98,7 +98,6 @@ class User {
     }, [])
   }
 
-  // AKU START ========================
   findStairRecord(activityData) {
     return activityData.reduce((stairRecord, entry) => {
       if (entry.userID === this.id && entry.flightsOfStairs > stairRecord) {
@@ -107,7 +106,22 @@ class User {
       return stairRecord;
     }, 0)
   }
-  // AKU END =========================
+
+  reachedDailyStepGoal(activityInfo, date) {
+    const currentUser = activityInfo.find(entry => {
+      return entry.userID === this.id && entry.date === date;
+    })
+    return (currentUser.numSteps > this.dailyStepGoal)
+  }
+
+  findDaysExceededStepGoal(activityInfo) {
+    return activityInfo.reduce((acc, entry) => {
+      if (entry.userID === this.id && entry.numSteps > this.dailyStepGoal) {
+        acc.push(entry.date)
+      }
+      return acc;
+    }, [])
+  }
 }
 
 export default User;
