@@ -101,7 +101,7 @@ class User {
   // AKU START ========================
   findStairRecord(activityData) {
     return activityData.reduce((stairRecord, entry) => {
-      if (entry.flightsOfStairs > stairRecord) {
+      if (entry.userID === this.id && entry.flightsOfStairs > stairRecord) {
         stairRecord = entry.flightsOfStairs;
       }
       return stairRecord;

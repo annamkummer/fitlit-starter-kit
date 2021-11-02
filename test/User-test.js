@@ -327,6 +327,7 @@ describe('User', () => {
   // AKU START ========================
   it('should find stair climbing record for single user', function () {
     expect(user1.findStairRecord(activityData)).to.equal(44);
+    expect(user2.findStairRecord(activityData)).to.equal(37);
   })
   // AKU END =========================
 });
