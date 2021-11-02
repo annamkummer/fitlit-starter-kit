@@ -108,6 +108,15 @@ class User {
       return false;
     }
   }
+
+  findDaysExceededStepGoal(activityInfo) {
+    return activityInfo.reduce((acc, entry) => {
+      if (entry.userID === this.id && entry.numSteps > this.dailyStepGoal) {
+        acc.push(entry.date)
+      }
+      return acc;
+    }, [])
+  }
 }
 
 export default User;
