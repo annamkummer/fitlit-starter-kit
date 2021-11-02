@@ -334,4 +334,10 @@ describe('User', () => {
     expect(user1.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17", "2019/06/20", "2019/06/22"])
     expect(user2.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17"])
   })
+
+  it('should find stair climbing record for single user', function () {
+    expect(user1.findStairRecord(activityData)).to.equal(44);
+    expect(user2.findStairRecord(activityData)).to.equal(37);
+  })
+
 });

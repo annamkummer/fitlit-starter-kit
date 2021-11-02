@@ -98,11 +98,20 @@ class User {
     }, [])
   }
 
+  findStairRecord(activityData) {
+    return activityData.reduce((stairRecord, entry) => {
+      if (entry.userID === this.id && entry.flightsOfStairs > stairRecord) {
+        stairRecord = entry.flightsOfStairs;
+      }
+      return stairRecord;
+    }, 0)
+  }
+
   reachedDailyStepGoal(activityInfo, date) {
     const currentUser = activityInfo.find(entry => {
       return entry.userID === this.id && entry.date === date;
     })
-    return (currentUser.numSteps > this.dailyStepGoal) 
+    return (currentUser.numSteps > this.dailyStepGoal)
   }
 
   findDaysExceededStepGoal(activityInfo) {
