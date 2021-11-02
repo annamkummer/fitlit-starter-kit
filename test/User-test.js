@@ -322,5 +322,18 @@ describe('User', () => {
   it('should return the average sleep quality for all users', function() {
     const userRepository = new UserRepository(userData);
     expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
+  });
+  it('should return miles a user has walked based on their number of steps', function(){
+    expect(user1.findMilesWalked(activityData,"2019/06/22")).to.equal(8.38)
+
+  });
+  it('should return how many minutes they were active for a given day', function(){
+    expect(user1.findMinsActiveByDate(activityData,"2019/06/22")).to.equal(119)
+
+  });
+  it('should return minutes active for a given week', function(){
+    expect(user1.calculateWeeklyActive(activityData,"2019/06/22")).to.deep.equal(163.57);
+
   })
+
 });
