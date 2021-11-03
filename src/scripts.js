@@ -65,7 +65,7 @@ const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, da
             <h1 class="welcome header">Welcome, ${user.displayFirstName()}</h1>
           </div>
           <div class="dashboard-summary">
-          <h1 class="header-caption">${user.displayFirstName().toUpperCase()}'S ACTIVITY SUMMARY</h1>
+          <h1 class="header-caption">${user.displayFirstName().toUpperCase()}'S MOST RECENT ACTIVITY</h1>
           <div class="container">
               <section class="box">
                 <p class="header-label">Steps</p>
