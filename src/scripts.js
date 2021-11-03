@@ -262,7 +262,7 @@ const generateActivityComparisonChart = (comp) => {
   return new Chart(activityComparisonChart, {
     type: 'bar',
     data: {
-      labels: ['Number of Steps', 'Minutes Active', 'Stairs Climbed'],
+      labels: ['Number of Steps (in thousands)', 'Minutes Active', 'Stairs Climbed'],
       datasets: [{
         label: 'Your Entry',
         data: [`${comp.userNumSteps / 1000}`, `${comp.userMinActive}`, `${comp.userFlights * 12}`],
@@ -311,6 +311,15 @@ const getActivityComparisonData = (user, userRepo, activity, date) => {
   }
 }
 
+const getWeeklyAvgActivityData = (user, activity, date) => {
+  return {
+    miles: user.calculateWeeklyMiles(activity, date),
+    numSteps: user.calculateWeeklySteps(activity, date),
+    minActive: user.calculateWeeklyActive(activity, date),
+    flights: user.calculateWeeklyFlights(activity, date),
+  }
+}
+
 const loadPage = (data) => {
   const allUsers = new UserRepository(data[0]);
   const sleepData = new Sleep(data[1]);
@@ -324,7 +333,11 @@ const loadPage = (data) => {
   const currentUserSleepDataByDate = currentUser.findHoursSleptByWeek(sleepData.sleepData, date);
   const sleepComparisonData = getSleepComparison(currentUser, sleepData.sleepData, date);
   const stepsByDate = currentUser.findStepsByDate(activityData.activityData, date);
-  const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.activityData, date)
+  const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.activityData, date);
+  const weeklyActivityAverages = getWeeklyAvgActivityData(currentUser, activityData.activityData, date);
+
+  console.log('weekly data', weeklyActivityAverages)
+
 
   activityComparisonChart.innerHTML = generateActivityComparisonChart(activityComparisons)
   header.innerHTML = generateHeaderContent(currentUser);

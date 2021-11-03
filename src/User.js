@@ -135,18 +135,20 @@ class User {
     }, [])
   }
 
-  findMilesWalked(activityData, date){
+  findMilesWalked(activityData, date) {
     const milesWalked = activityData.find(entry => {
       return (entry.userID === this.id && entry.date === date)
     }).numSteps * this.strideLength/5280;
     return Number(milesWalked.toFixed(2))
   }
-  findMinsActiveByDate(activityData, date){
+
+  findMinsActiveByDate(activityData, date) {
     return activityData.find(entry => {
       return (entry.userID === this.id && entry.date === date)
     }).minutesActive
   }
-  calculateWeeklyActive(activityData, date){
+
+  calculateWeeklyActive(activityData, date) {
     const weeklyMins = activityData.reduceRight((minsActive, entry) => {
       if ((entry.userID === this.id) && (entry.date <= date) && (minsActive.length < 7)) {
         minsActive.push(entry.minutesActive);
@@ -158,6 +160,40 @@ class User {
       return total
     },0)
     return Number((weeklyAvg/7).toFixed(2))
+  }
+
+  calculateWeeklySteps(activityData, date) {
+    const weeklySteps = activityData.reduceRight((steps, entry) => {
+      if ((entry.userID === this.id) && (entry.date <= date) && (steps.length < 7)) {
+        steps.push(entry.numSteps);
+      }
+      return steps
+    },[])
+    const weeklyAvg = weeklySteps.reduce((total, steps) => {
+      total += steps
+      return total
+    },0)
+    return Number((weeklyAvg/7).toFixed(2))
+  }
+
+  calculateWeeklyFlights(activityData, date) {
+    const weeklyFlights = activityData.reduceRight((flights, entry) => {
+      if ((entry.userID === this.id) && (entry.date <= date) && (flights.length < 7)) {
+        flights.push(entry.flightsOfStairs);
+      }
+      return flights
+    },[])
+    const weeklyAvg = weeklyFlights.reduce((total, flights) => {
+      total += flights
+      return total
+    },0)
+    return Number((weeklyAvg/7).toFixed(2))
+  }
+
+  calculateWeeklyMiles(activityData, date) {
+    const steps = this.calculateWeeklySteps(activityData, date)
+    const avg = steps * this.strideLength / 5280
+    return Number(avg.toFixed(2))
   }
 }
 
