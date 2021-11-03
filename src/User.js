@@ -97,6 +97,56 @@ class User {
       return hoursPerDay;
     }, [])
   }
+
+  findStairRecord(activityData) {
+    return activityData.reduce((stairRecord, entry) => {
+      if (entry.userID === this.id && entry.flightsOfStairs > stairRecord) {
+        stairRecord = entry.flightsOfStairs;
+      }
+      return stairRecord;
+    }, 0)
+  }
+
+  reachedDailyStepGoal(activityInfo, date) {
+    const currentUser = activityInfo.find(entry => {
+      return entry.userID === this.id && entry.date === date;
+    })
+    return (currentUser.numSteps > this.dailyStepGoal)
+  }
+
+  findDaysExceededStepGoal(activityInfo) {
+    return activityInfo.reduce((acc, entry) => {
+      if (entry.userID === this.id && entry.numSteps > this.dailyStepGoal) {
+        acc.push(entry.date)
+      }
+      return acc;
+    }, [])
+  }
+  
+  findMilesWalked(activityData, date){
+    const milesWalked = activityData.find(entry => {
+      return (entry.userID === this.id && entry.date === date)
+    }).numSteps * this.strideLength/5280;
+    return Number(milesWalked.toFixed(2))
+  }
+  findMinsActiveByDate(activityData, date){
+    return activityData.find(entry => {
+      return (entry.userID === this.id && entry.date === date)
+    }).minutesActive
+  }
+  calculateWeeklyActive(activityData, date){
+    const weeklyMins = activityData.reduceRight((minsActive, entry) => {
+      if ((entry.userID === this.id) && (entry.date <= date) && (minsActive.length < 7)) {
+        minsActive.push(entry.minutesActive);
+      }
+      return minsActive
+    },[])
+    const weeklyAvg = weeklyMins.reduce((total, min) => {
+      total += min
+      return total
+    },0)
+    return Number((weeklyAvg/7).toFixed(2))
+  }
 }
 
 export default User;

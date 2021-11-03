@@ -322,5 +322,34 @@ describe('User', () => {
   it('should return the average sleep quality for all users', function() {
     const userRepository = new UserRepository(userData);
     expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
+  });
+
+  it('should return miles a user has walked based on their number of steps', function(){
+    expect(user1.findMilesWalked(activityData,"2019/06/22")).to.equal(8.38)
+  });
+
+  it('should return how many minutes they were active for a given day', function(){
+    expect(user1.findMinsActiveByDate(activityData,"2019/06/22")).to.equal(119)
+  });
+
+  it('should return minutes active for a given week', function(){
+    expect(user1.calculateWeeklyActive(activityData,"2019/06/22")).to.deep.equal(163.57);
   })
+
+  it('should tell user if they reached their step goal for a specified date', function() {
+    expect(user1.reachedDailyStepGoal(activityData, "2019/06/15")).to.equal(false)
+    expect(user1.reachedDailyStepGoal(activityData, "2019/06/20")).to.equal(true)
+    expect(user2.reachedDailyStepGoal(activityData, "2019/06/17")).to.equal(true)
+  })
+
+  it('should provide user with a list of days their step goal was exceeded', function() {
+    expect(user1.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17", "2019/06/20", "2019/06/22"])
+    expect(user2.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17"])
+  })
+
+  it('should find stair climbing record for single user', function () {
+    expect(user1.findStairRecord(activityData)).to.equal(44);
+    expect(user2.findStairRecord(activityData)).to.equal(37);
+  })
+
 });
