@@ -26,25 +26,49 @@
   justify-content: space-between;
 }
 
+/* EDITED BY AB */
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  height: 80%;
-  width: 30%;
+  /* height: 10%; */
+  /* width: 100%; */
   margin-right: 2%;
   border-radius: 0px;
 }
 
+/* EDITED BY AB */
 .box {
   border-radius: 0px;
+  height: 90%;
   display: flex;
   text-align: center;
   flex-direction: column;
   justify-content: end;
   color: black;
   background-color: #FFFFFF;
-  border: 2px solid black;
   font-size: smaller;
+  box-shadow: 0.5rem 0.5rem black, -0.5rem -0.5rem #ccc;
+}
+
+.dashboard-summary {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.header-date {
+  font-size: medium;
+  margin-bottom: 3%;
+}
+
+.center {
+  display: flex;
+  flex-direction:row;
+}
+
+.header-text {
+  font-size: x-large;
+  margin-bottom: 0px; 
 }
 
 .welcome-box {

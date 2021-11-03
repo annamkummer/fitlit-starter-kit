@@ -58,24 +58,28 @@ const getSleepComparison = (currentUser, sleepData, date) => {
   return comparison;
 }
 
+// EDITED BY AB
 const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, date) => {
   return `<div class="welcome-box">
             <img src="./images/user.png" alt="user-icon" class="header header-image">
             <h1 class="welcome header">Welcome, ${user.displayFirstName()}</h1>
           </div>
+          <div class="dashboard-summary">
+          <h1 class="header-date">ACTIVITY DATA FOR: ${date}</h1>
           <div class="container">
-            <section class="box">
-              <h1>${stepsByDate}</h1>
-              <p>Steps</p>
-            </section>
-            <section class="box">
-              <h1>${minutesActive}</h1>
-              <p>Minutes Active</p>
-            </section>
-            <section class="box">
-              <h1>${milesWalked}</h1>
-              <p>Miles Walked</p>
-            </section>
+              <section class="box">
+                <h1 class="header-text">${stepsByDate}</h1>
+                <p>Steps</p>
+              </section>
+              <section class="box">
+                <h1 class="header-text">${minutesActive}</h1>
+                <p>Minutes Active</p>
+              </section>
+              <section class="box">
+                <h1 class="header-text">${milesWalked}</h1>
+                <p>Miles Walked</p>
+              </section>
+            </div>
           </div>
           <div class="user-info-box">
             <p class="user-info">Name: ${user.name}</p>
@@ -283,6 +287,7 @@ const loadPage = (data) => {
   const ouncesByDate = currentUser.findOuncesByDate(hydrationData.hydrationData, date)
   const currentUserSleepDataByDate = currentUser.findHoursSleptByWeek(sleepData.sleepData, date);
   const sleepComparisonData = getSleepComparison(currentUser, sleepData.sleepData, date);
+  // EDITED BY AB
   const stepsByDate = currentUser.findStepsByDate(activityData.activityData, date);
   const milesWalked = currentUser.findMilesWalked(activityData.activityData, date);
   const minutesActive = currentUser.findMinsActiveByDate(activityData.activityData, date);
