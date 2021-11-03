@@ -7,6 +7,7 @@ import Sleep from './Sleep';
 import Chart from 'chart.js/auto';
 import {userData, userSleepData, userActivityData, userHydrationData} from './fetch.js';
 import Hydration from './Hydration';
+import Activity from './Activity';
 
 const header = document.querySelector('#header')
 const stepGoalChart = document.querySelector('#activityChart')
@@ -14,6 +15,7 @@ const sleepChartWeek = document.querySelector('#sleepChartWeek')
 const sleepChartAvg = document.querySelector('#sleepChartAvg')
 const waterChartWeek = document.querySelector('#waterChartWeek')
 const waterChartDay = document.querySelector('#waterChartDay')
+const activityComparisonChart = document.querySelector('#userAvgActivityComparisonChart')
 
 
 const fetchData = () => {
@@ -256,18 +258,75 @@ const generateAvgSleepChart = (sleepComparisonData) => {
   })
 }
 
+const generateActivityComparisonChart = (comp) => {
+  return new Chart(activityComparisonChart, {
+    type: 'bar',
+    data: {
+      labels: ['Number of Steps', 'Minutes Active', 'Stairs Climbed'],
+      datasets: [{
+        label: 'Your Entry',
+        data: [`${comp.userNumSteps / 1000}`, `${comp.userMinActive}`, `${comp.userFlights * 12}`],
+        backgroundColor: '#17D290',
+        borderColor: '#17D290'
+      }, {
+        label: 'Community Average',
+        data: [`${comp.avgNumSteps / 1000}`, `${comp.avgMinActive}`, `${comp.avgFlights * 12}`],
+        backgroundColor: '#ba4afe',
+        borderColor: '#ba4afe'
+      }],
+    },
+    options: {
+      elements: {
+        bar: {
+          borderRadius: 10,
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            pointStyle: 'rectRounded'
+          }
+        },
+        title: {
+          display: true,
+          text: 'Day/Average Comparison',
+          font: {
+            size: 20
+          }
+        }
+      }
+    }
+  })
+}
+
+const getActivityComparisonData = (user, userRepo, activity, date) => {
+  return   {
+    userNumSteps: user.findStepsByDate(activity, date),
+    avgNumSteps: userRepo.calculateAvgStepsTaken(activity, date),
+    userMinActive: user.findMinsActiveByDate(activity, date),
+    avgMinActive: userRepo.calculateAvgMinActive(activity, date),
+    userFlights: user.findFlightsByDate(activity, date),
+    avgFlights: userRepo.calculateAvgStairsClimbed(activity, date),
+  }
+}
+
 const loadPage = (data) => {
   const allUsers = new UserRepository(data[0]);
   const sleepData = new Sleep(data[1]);
   const hydrationData = new Hydration(data[3]);
   const randomIndex = generateRandomIndex(allUsers.users);
   const currentUser = new User(allUsers.users[randomIndex]);
+  const activityData = new Activity(data[2]);
   const date = getLatestDate(sleepData.sleepData, currentUser);
   const ouncesByWeek = currentUser.findOuncesByWeek(hydrationData.hydrationData, date)
   const ouncesByDate = currentUser.findOuncesByDate(hydrationData.hydrationData, date)
   const currentUserSleepDataByDate = currentUser.findHoursSleptByWeek(sleepData.sleepData, date);
   const sleepComparisonData = getSleepComparison(currentUser, sleepData.sleepData, date);
+  const stepsByDate = currentUser.findStepsByDate(activityData.activityData, date);
+  const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.activityData, date)
 
+  activityComparisonChart.innerHTML = generateActivityComparisonChart(activityComparisons)
   header.innerHTML = generateHeaderContent(currentUser);
   stepGoalChart.innerHTML = generateStepGoalChart(currentUser, allUsers);
   waterChartDay.innerHTML = generateDayWaterChart(ouncesByDate, date);

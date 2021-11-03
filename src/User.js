@@ -30,6 +30,18 @@ class User {
     }).numOunces
   }
 
+  findStepsByDate(activityData, date) {
+    return activityData.find(entry => {
+      return (entry.userID === this.id && entry.date === date);
+    }).numSteps
+  }
+
+  findFlightsByDate(activityData, date) {
+    return activityData.find(entry => {
+      return (entry.userID === this.id && entry.date === date);
+    }).flightsOfStairs
+  }
+
   findOuncesByWeek(hydrationData, date) {
     return hydrationData.reduce((ouncesPerDay, entry) => {
       if ((entry.userID === this.id) && (entry.date <= date)) {
@@ -122,7 +134,7 @@ class User {
       return acc;
     }, [])
   }
-  
+
   findMilesWalked(activityData, date){
     const milesWalked = activityData.find(entry => {
       return (entry.userID === this.id && entry.date === date)
