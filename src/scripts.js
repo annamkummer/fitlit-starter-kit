@@ -65,19 +65,27 @@ const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, da
             <h1 class="welcome header">Welcome, ${user.displayFirstName()}</h1>
           </div>
           <div class="dashboard-summary">
-          <h1 class="header-date">${user.displayFirstName().toUpperCase()}'S ACTIVITY SUMMARY FOR: ${date}</h1>
+          <h1 class="header-caption">${user.displayFirstName().toUpperCase()}'S ACTIVITY SUMMARY</h1>
           <div class="container">
               <section class="box">
-                <h1 class="header-text">${stepsByDate}</h1>
-                <p>Steps</p>
+                <p class="header-label">Steps</p>
+                <h1 class="header-text">Day: ${stepsByDate}</h1>
+                <h1 class="header-text">Week: 100000</h1>
               </section>
               <section class="box">
-                <h1 class="header-text">${minutesActive}</h1>
-                <p>Minutes Active</p>
+                <p class="header-label">Minutes Active</p>
+                <h1 class="header-text">Day: ${minutesActive}</h1>
+                <h1 class="header-text">Week: 100000</h1>
               </section>
               <section class="box">
-                <h1 class="header-text">${milesWalked}</h1>
-                <p>Miles Walked</p>
+                <p class="header-label">Miles Walked</p>
+                <h1 class="header-text">Day: ${milesWalked}</h1>
+                <h1 class="header-text">Week: 100000</h1>
+              </section>
+              <section class="box">
+                <p class="header-label">Flights of Stairs</p>
+                <h1 class="header-text">Day: ${milesWalked}</h1>
+                <h1 class="header-text">Week: 100000</h1>
               </section>
             </div>
           </div>
