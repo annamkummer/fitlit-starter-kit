@@ -3,6 +3,7 @@ import './images/turing-logo.png';
 import './images/user.png';
 import UserRepository from './UserRepository';
 import User from './User';
+import Activity from './Activity';
 import Sleep from './Sleep';
 import Chart from 'chart.js/auto';
 import {userData, userSleepData, userActivityData, userHydrationData} from './fetch.js';
@@ -57,10 +58,24 @@ const getSleepComparison = (currentUser, sleepData, date) => {
   return comparison;
 }
 
-const generateHeaderContent = (user) => {
+const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, date) => {
   return `<div class="welcome-box">
             <img src="./images/user.png" alt="user-icon" class="header header-image">
             <h1 class="welcome header">Welcome, ${user.displayFirstName()}</h1>
+          </div>
+          <div class="container">
+            <section class="box">
+              <h1>${stepsByDate}</h1>
+              <p>Steps</p>
+            </section>
+            <section class="box">
+              <h1>${minutesActive}</h1>
+              <p>Minutes Active</p>
+            </section>
+            <section class="box">
+              <h1>${milesWalked}</h1>
+              <p>Miles Walked</p>
+            </section>
           </div>
           <div class="user-info-box">
             <p class="user-info">Name: ${user.name}</p>
@@ -260,6 +275,7 @@ const loadPage = (data) => {
   const allUsers = new UserRepository(data[0]);
   const sleepData = new Sleep(data[1]);
   const hydrationData = new Hydration(data[3]);
+  const activityData = new Activity(data[2]);
   const randomIndex = generateRandomIndex(allUsers.users);
   const currentUser = new User(allUsers.users[randomIndex]);
   const date = getLatestDate(sleepData.sleepData, currentUser);
@@ -267,8 +283,11 @@ const loadPage = (data) => {
   const ouncesByDate = currentUser.findOuncesByDate(hydrationData.hydrationData, date)
   const currentUserSleepDataByDate = currentUser.findHoursSleptByWeek(sleepData.sleepData, date);
   const sleepComparisonData = getSleepComparison(currentUser, sleepData.sleepData, date);
+  const stepsByDate = currentUser.findStepsByDate(activityData.activityData, date);
+  const milesWalked = currentUser.findMilesWalked(activityData.activityData, date);
+  const minutesActive = currentUser.findMinsActiveByDate(activityData.activityData, date);
 
-  header.innerHTML = generateHeaderContent(currentUser);
+  header.innerHTML = generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, date);
   stepGoalChart.innerHTML = generateStepGoalChart(currentUser, allUsers);
   waterChartDay.innerHTML = generateDayWaterChart(ouncesByDate, date);
   waterChartWeek.innerHTML = generateWeekWaterChart(ouncesByWeek);

@@ -26,6 +26,27 @@
   justify-content: space-between;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 80%;
+  width: 30%;
+  margin-right: 2%;
+  border-radius: 0px;
+}
+
+.box {
+  border-radius: 0px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: end;
+  color: black;
+  background-color: #FFFFFF;
+  border: 2px solid black;
+  font-size: smaller;
+}
+
 .welcome-box {
   background-color: #FFFFFF;
   border: 2px solid #FFFFFF;

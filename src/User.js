@@ -129,11 +129,13 @@ class User {
     }).numSteps * this.strideLength/5280;
     return Number(milesWalked.toFixed(2))
   }
+  
   findMinsActiveByDate(activityData, date){
     return activityData.find(entry => {
       return (entry.userID === this.id && entry.date === date)
     }).minutesActive
   }
+  
   calculateWeeklyActive(activityData, date){
     const weeklyMins = activityData.reduceRight((minsActive, entry) => {
       if ((entry.userID === this.id) && (entry.date <= date) && (minsActive.length < 7)) {
@@ -146,6 +148,12 @@ class User {
       return total
     },0)
     return Number((weeklyAvg/7).toFixed(2))
+  }
+
+  findStepsByDate(activityData, date) {
+    return activityData.find(entry => {
+      return (entry.userID === this.id && entry.date === date);
+    }).numSteps
   }
 }
 
