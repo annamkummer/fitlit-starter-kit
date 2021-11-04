@@ -40,17 +40,13 @@ class User {
   }
 
   findStepsByDate(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData)
-    return currentUser.find(entry => {
-      return (entry.date === date);
-    }).numSteps
+    const currentUser = this.findUserAndDate(activityData, date)
+    return currentUser.numSteps
   }
 
   findFlightsByDate(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData)
-    return currentUser.find(entry => {
-      return (entry.date === date);
-    }).flightsOfStairs
+    const currentUser = this.findUserAndDate(activityData, date)
+    return currentUser.flightsOfStairs
   }
 
   findOuncesByWeek(hydrationData, date) {
