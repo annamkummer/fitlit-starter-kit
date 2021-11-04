@@ -14,10 +14,20 @@ class User {
     return firstName[0];
   }
 
-  calculateAvgOunces(hydrationData) {
-    const currentUser = hydrationData.filter(element => {
+  findUser(dataset) {
+    return dataset.filter(element => {
       return element.userID === this.id
-    })
+    }) 
+  }
+
+  findUserAndDate(dataset, date) {
+    return dataset.find(element => {
+      return element.userID === this.id && element.date === date
+    }) 
+  }
+
+  calculateAvgOunces(hydrationData) {
+    const currentUser = this.findUser(hydrationData)
     const avg = (currentUser.reduce((avgOunces, userHyd) => {
       return avgOunces + userHyd.numOunces;
     }, 0)) / currentUser.length;
@@ -25,26 +35,24 @@ class User {
   }
 
   findOuncesByDate(hydrationData, date) {
-    return hydrationData.find(entry => {
-      return (entry.userID === this.id && entry.date === date);
-    }).numOunces
+    const currentUser = this.findUserAndDate(hydrationData, date)
+    return currentUser.numOunces
   }
 
   findStepsByDate(activityData, date) {
-    return activityData.find(entry => {
-      return (entry.userID === this.id && entry.date === date);
-    }).numSteps
+    const currentUser = this.findUserAndDate(activityData, date)
+    return currentUser.numSteps
   }
 
   findFlightsByDate(activityData, date) {
-    return activityData.find(entry => {
-      return (entry.userID === this.id && entry.date === date);
-    }).flightsOfStairs
+    const currentUser = this.findUserAndDate(activityData, date)
+    return currentUser.flightsOfStairs
   }
 
   findOuncesByWeek(hydrationData, date) {
-    return hydrationData.reduce((ouncesPerDay, entry) => {
-      if ((entry.userID === this.id) && (entry.date <= date)) {
+    const currentUser = this.findUser(hydrationData)
+    return currentUser.reduce((ouncesPerDay, entry) => {
+      if (entry.date <= date) {
         ouncesPerDay.push(entry);
         if (ouncesPerDay.length > 7) {
           ouncesPerDay.shift();
@@ -55,15 +63,12 @@ class User {
   }
 
   findSleepQualityByDate(sleepInfo, date) {
-    return sleepInfo.find(entry => {
-      return (entry.userID === this.id && entry.date === date);
-    }).sleepQuality;
+    const currentUser = this.findUserAndDate(sleepInfo, date)
+    return currentUser.sleepQuality;
   }
 
   calculateAvgDailySleep(sleepInfo) {
-    const currentUser = sleepInfo.filter(element => {
-      return element.userID === this.id
-    })
+    const currentUser = this.findUser(sleepInfo)
     const avg = (currentUser.reduce((avgDailySleep, userSleep) => {
       return avgDailySleep + userSleep.hoursSlept;
     }, 0)) / currentUser.length;
@@ -71,9 +76,7 @@ class User {
   }
 
   calculateAvgSleepQuality(sleepInfo) {
-    const currentUser = sleepInfo.filter(element => {
-      return element.userID === this.id
-    })
+    const currentUser = this.findUser(sleepInfo)
     const avg = (currentUser.reduce((avgSleepQuality, userSleep) => {
       return avgSleepQuality + userSleep.sleepQuality;
     }, 0)) / currentUser.length;
@@ -81,14 +84,14 @@ class User {
   }
 
   findHoursSleptByDate(sleepInfo, date) {
-    return sleepInfo.find(entry => {
-      return (entry.userID === this.id && entry.date === date);
-    }).hoursSlept
+    const currentUser = this.findUserAndDate(sleepInfo, date)
+    return currentUser.hoursSlept
   }
 
   findHoursSleptByWeek(sleepInfo, date) {
-    return sleepInfo.reduce((hoursPerDay, entry) => {
-      if ((entry.userID === this.id) && (entry.date <= date)) {
+    const currentUser = this.findUser(sleepInfo, date)
+    return currentUser.reduce((hoursPerDay, entry) => {
+      if (entry.date <= date) {
         hoursPerDay.push(entry);
         if (hoursPerDay.length > 7) {
           hoursPerDay.shift();
@@ -99,8 +102,9 @@ class User {
   }
 
   findSleepQualityByWeek(sleepInfo, date) {
-    return sleepInfo.reduce((hoursPerDay, entry) => {
-      if ((entry.userID === this.id) && (entry.date <= date)) {
+    const currentUser = this.findUser(sleepInfo, date)
+    return currentUser.reduce((hoursPerDay, entry) => {
+      if (entry.date <= date) {
         hoursPerDay.push(entry.sleepQuality);
         if (hoursPerDay.length > 7) {
           hoursPerDay.shift();
@@ -111,24 +115,24 @@ class User {
   }
 
   findStairRecord(activityData) {
-    return activityData.reduce((stairRecord, entry) => {
-      if (entry.userID === this.id && entry.flightsOfStairs > stairRecord) {
+    const currentUser = this.findUser(activityData)
+    return currentUser.reduce((stairRecord, entry) => {
+      if (entry.flightsOfStairs > stairRecord) {
         stairRecord = entry.flightsOfStairs;
       }
       return stairRecord;
     }, 0)
   }
 
-  reachedDailyStepGoal(activityInfo, date) {
-    const currentUser = activityInfo.find(entry => {
-      return entry.userID === this.id && entry.date === date;
-    })
+  reachedDailyStepGoal(activityData, date) {
+    const currentUser = this.findUserAndDate(activityData, date)
     return (currentUser.numSteps > this.dailyStepGoal)
   }
 
-  findDaysExceededStepGoal(activityInfo) {
-    return activityInfo.reduce((acc, entry) => {
-      if (entry.userID === this.id && entry.numSteps > this.dailyStepGoal) {
+  findDaysExceededStepGoal(activityData) {
+    const currentUser = this.findUser(activityData)
+    return currentUser.reduce((acc, entry) => {
+      if (entry.numSteps > this.dailyStepGoal) {
         acc.push(entry.date)
       }
       return acc;
@@ -136,21 +140,20 @@ class User {
   }
 
   findMilesWalked(activityData, date) {
-    const milesWalked = activityData.find(entry => {
-      return (entry.userID === this.id && entry.date === date)
-    }).numSteps * this.strideLength/5280;
+    const currentUser = this.findUserAndDate(activityData, date)
+    const milesWalked = currentUser.numSteps * this.strideLength/5280;
     return Number(milesWalked.toFixed(2))
   }
 
   findMinsActiveByDate(activityData, date) {
-    return activityData.find(entry => {
-      return (entry.userID === this.id && entry.date === date)
-    }).minutesActive
+    const currentUser = this.findUserAndDate(activityData, date)
+    return currentUser.minutesActive
   }
 
   calculateWeeklyActive(activityData, date) {
-    const weeklyMins = activityData.reduceRight((minsActive, entry) => {
-      if ((entry.userID === this.id) && (entry.date <= date) && (minsActive.length < 7)) {
+    const currentUser = this.findUser(activityData)
+    const weeklyMins = currentUser.reduceRight((minsActive, entry) => {
+      if ((entry.date <= date) && (minsActive.length < 7)) {
         minsActive.push(entry.minutesActive);
       }
       return minsActive
@@ -162,15 +165,10 @@ class User {
     return Number((weeklyAvg/7).toFixed(2))
   }
 
-  findStepsByDate(activityData, date) {
-    return activityData.find(entry => {
-      return (entry.userID === this.id && entry.date === date);
-    }).numSteps
-  }
-  
   calculateWeeklySteps(activityData, date) {
-    const weeklySteps = activityData.reduceRight((steps, entry) => {
-      if ((entry.userID === this.id) && (entry.date <= date) && (steps.length < 7)) {
+    const currentUser = this.findUser(activityData)
+    const weeklySteps = currentUser.reduceRight((steps, entry) => {
+      if ((entry.date <= date) && (steps.length < 7)) {
         steps.push(entry.numSteps);
       }
       return steps
@@ -183,7 +181,8 @@ class User {
   }
 
   calculateWeeklyFlights(activityData, date) {
-    const weeklyFlights = activityData.reduceRight((flights, entry) => {
+    const currentUser = this.findUser(activityData)
+    const weeklyFlights = currentUser.reduceRight((flights, entry) => {
       if ((entry.userID === this.id) && (entry.date <= date) && (flights.length < 7)) {
         flights.push(entry.flightsOfStairs);
       }
