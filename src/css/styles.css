@@ -139,7 +139,7 @@
   height: 80%;
 }
 
-.sleep-chart-week, .sleep-chart-avg, .activity-chart, .water-chart-week, .water-chart-day {
+.sleep-chart-week, .sleep-chart-avg, .activity-chart, .water-chart-week, .water-chart-day, .user-avg-activity-comparison-chart {
   background-color: #FFFFFF;
   margin: 20px;
   padding: 10px;
