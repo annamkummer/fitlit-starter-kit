@@ -70,22 +70,22 @@ const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, da
               <section class="box">
                 <p class="header-label">Steps</p>
                 <h1 class="header-text">Day: ${stepsByDate}</h1>
-                <h1 class="header-text">Week: ${weeklyData.numSteps}</h1>
+                <h1 class="header-text">7-day avg: ${weeklyData.numSteps}</h1>
               </section>
               <section class="box">
                 <p class="header-label">Minutes Active</p>
                 <h1 class="header-text">Day: ${minutesActive}</h1>
-                <h1 class="header-text">Week: ${weeklyData.minActive}</h1>
+                <h1 class="header-text">7-day avg: ${weeklyData.minActive}</h1>
               </section>
               <section class="box">
                 <p class="header-label">Miles Walked</p>
                 <h1 class="header-text">Day: ${milesWalked}</h1>
-                <h1 class="header-text">Week: ${weeklyData.miles}</h1>
+                <h1 class="header-text">7-day avg: ${weeklyData.miles}</h1>
               </section>
               <section class="box">
                 <p class="header-label">Flights of Stairs</p>
                 <h1 class="header-text">Day: ${milesWalked}</h1>
-                <h1 class="header-text">Week: ${weeklyData.flights}</h1>
+                <h1 class="header-text">7-day avg: ${weeklyData.flights}</h1>
               </section>
             </div>
           </div>
