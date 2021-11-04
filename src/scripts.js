@@ -36,7 +36,7 @@ const generateRandomIndex = (dataset) => {
   return Math.floor(Math.random() * dataset.length);
 }
 
-const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, date, weeklyData) => {
+const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, weeklyData, flightsWalked) => {
   return `<div class="welcome-box">
             <img src="./images/user.png" alt="user-icon" class="header header-image">
             <h1 class="welcome header">Welcome, ${user.displayFirstName()}</h1>
@@ -61,7 +61,7 @@ const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, da
               </section>
               <section class="box">
                 <p class="header-label">Flights of Stairs</p>
-                <h1 class="header-text">Day: ${milesWalked}</h1>
+                <h1 class="header-text">Day: ${flightsWalked}</h1>
                 <h1 class="header-text">7-day avg: ${weeklyData.flights}</h1>
               </section>
             </div>
@@ -315,11 +315,12 @@ const loadPage = (data) => {
   const sleepComparisonData = getSleepComparison(currentUser, sleepData.sleepData, date);
   const stepsByDate = currentUser.findStepsByDate(activityData.activityData, date);
   const milesWalked = currentUser.findMilesWalked(activityData.activityData, date);
+  const flightsWalked = currentUser.findFlightsByDate(activityData.activityData, date);
   const minutesActive = currentUser.findMinsActiveByDate(activityData.activityData, date);
   const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.activityData, date);
   const weeklyActivityAverages = getWeeklyAvgActivityData(currentUser, activityData.activityData, date);
 
-  header.innerHTML = generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, date, weeklyActivityAverages);
+  header.innerHTML = generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, weeklyActivityAverages, flightsWalked);
   activityComparisonChart.innerHTML = generateActivityComparisonChart(activityComparisons)
   stepGoalChart.innerHTML = generateStepGoalChart(currentUser, allUsers);
   waterChartDay.innerHTML = generateDayWaterChart(ouncesByDate, date);
