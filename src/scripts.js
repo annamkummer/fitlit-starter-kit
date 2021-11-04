@@ -3,11 +3,11 @@ import './images/turing-logo.png';
 import './images/user.png';
 import UserRepository from './UserRepository';
 import User from './User';
+import Activity from './Activity';
 import Sleep from './Sleep';
 import Chart from 'chart.js/auto';
 import {userData, userSleepData, userActivityData, userHydrationData} from './fetch.js';
 import Hydration from './Hydration';
-import Activity from './Activity';
 
 const header = document.querySelector('#header')
 const stepGoalChart = document.querySelector('#activityChart')
@@ -59,10 +59,35 @@ const getSleepComparison = (currentUser, sleepData, date) => {
   return comparison;
 }
 
-const generateHeaderContent = (user) => {
+const generateHeaderContent = (user, stepsByDate, milesWalked, minutesActive, date, weeklyData) => {
   return `<div class="welcome-box">
             <img src="./images/user.png" alt="user-icon" class="header header-image">
             <h1 class="welcome header">Welcome, ${user.displayFirstName()}</h1>
+          </div>
+          <div class="dashboard-summary">
+          <h1 class="header-caption">${user.displayFirstName().toUpperCase()}'S MOST RECENT ACTIVITY</h1>
+          <div class="container">
+              <section class="box">
+                <p class="header-label">Steps</p>
+                <h1 class="header-text">Day: ${stepsByDate}</h1>
+                <h1 class="header-text">Week: ${weeklyData.numSteps}</h1>
+              </section>
+              <section class="box">
+                <p class="header-label">Minutes Active</p>
+                <h1 class="header-text">Day: ${minutesActive}</h1>
+                <h1 class="header-text">Week: ${weeklyData.minActive}</h1>
+              </section>
+              <section class="box">
+                <p class="header-label">Miles Walked</p>
+                <h1 class="header-text">Day: ${milesWalked}</h1>
+                <h1 class="header-text">Week: ${weeklyData.miles}</h1>
+              </section>
+              <section class="box">
+                <p class="header-label">Flights of Stairs</p>
+                <h1 class="header-text">Day: ${milesWalked}</h1>
+                <h1 class="header-text">Week: ${weeklyData.flights}</h1>
+              </section>
+            </div>
           </div>
           <div class="user-info-box">
             <p class="user-info">Name: ${user.name}</p>
@@ -262,7 +287,7 @@ const generateActivityComparisonChart = (comp) => {
   return new Chart(activityComparisonChart, {
     type: 'bar',
     data: {
-      labels: ['Number of Steps (in thousands)', 'Minutes Active', 'Stairs Climbed'],
+      labels: ['Steps (thousands)', 'Minutes Active', 'Stairs Climbed'],
       datasets: [{
         label: 'Your Entry',
         data: [`${comp.userNumSteps / 1000}`, `${comp.userMinActive}`, `${comp.userFlights * 12}`],
@@ -324,23 +349,22 @@ const loadPage = (data) => {
   const allUsers = new UserRepository(data[0]);
   const sleepData = new Sleep(data[1]);
   const hydrationData = new Hydration(data[3]);
+  const activityData = new Activity(data[2]);
   const randomIndex = generateRandomIndex(allUsers.users);
   const currentUser = new User(allUsers.users[randomIndex]);
-  const activityData = new Activity(data[2]);
   const date = getLatestDate(sleepData.sleepData, currentUser);
   const ouncesByWeek = currentUser.findOuncesByWeek(hydrationData.hydrationData, date)
   const ouncesByDate = currentUser.findOuncesByDate(hydrationData.hydrationData, date)
   const currentUserSleepDataByDate = currentUser.findHoursSleptByWeek(sleepData.sleepData, date);
   const sleepComparisonData = getSleepComparison(currentUser, sleepData.sleepData, date);
   const stepsByDate = currentUser.findStepsByDate(activityData.activityData, date);
+  const milesWalked = currentUser.findMilesWalked(activityData.activityData, date);
+  const minutesActive = currentUser.findMinsActiveByDate(activityData.activityData, date);
   const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.activityData, date);
   const weeklyActivityAverages = getWeeklyAvgActivityData(currentUser, activityData.activityData, date);
 
-  console.log('weekly data', weeklyActivityAverages)
-
-
+  header.innerHTML = generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, date, weeklyActivityAverages);
   activityComparisonChart.innerHTML = generateActivityComparisonChart(activityComparisons)
-  header.innerHTML = generateHeaderContent(currentUser);
   stepGoalChart.innerHTML = generateStepGoalChart(currentUser, allUsers);
   waterChartDay.innerHTML = generateDayWaterChart(ouncesByDate, date);
   waterChartWeek.innerHTML = generateWeekWaterChart(ouncesByWeek);

@@ -162,6 +162,12 @@ class User {
     return Number((weeklyAvg/7).toFixed(2))
   }
 
+  findStepsByDate(activityData, date) {
+    return activityData.find(entry => {
+      return (entry.userID === this.id && entry.date === date);
+    }).numSteps
+  }
+  
   calculateWeeklySteps(activityData, date) {
     const weeklySteps = activityData.reduceRight((steps, entry) => {
       if ((entry.userID === this.id) && (entry.date <= date) && (steps.length < 7)) {
