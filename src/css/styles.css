@@ -150,6 +150,9 @@
 .user-avg-activity-comparison {
   display: flex;
   flex-direction: column;
+  height: 50%;
+  /* align-items: center; */
+  justify-content: center;
 }
 
 .activity-comparison-title {
@@ -160,13 +163,16 @@
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, 1fr);
+  height: 60%;
 }
 
 .activity-comparison-text {
+  /* height: 50%; */
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0;
+  font-size: 80%;
 }
 
 .activity-comparison-bubbles {
