@@ -43,3 +43,7 @@ export const getWeeklyAvgActivityData = (user, activity, date) => {
     flights: user.calculateWeeklyFlights(activity, date),
   }
 }
+
+export const generateRandomIndex = (dataset) => {
+  return Math.floor(Math.random() * dataset.length);
+}
