@@ -75,7 +75,7 @@
 .header-text {
   font-size: medium;
   margin-top: 0px;
-  margin-bottom: 0px; 
+  margin-bottom: 0px;
 }
 
 .welcome-box {
@@ -118,6 +118,7 @@
   color: #FFFFFF;
   font-size: 40px;
   font-weight: bold;
+  margin: 0% 0% 0% 0%;
 }
 
 .activity {
@@ -139,8 +140,44 @@
   height: 80%;
 }
 
-.sleep-chart-week, .sleep-chart-avg, .activity-chart, .water-chart-week, .water-chart-day, .user-avg-activity-comparison-chart {
+.sleep-chart-week, .sleep-chart-avg, .activity-chart, .water-chart-week, .water-chart-day, .user-avg-activity-comparison {
   background-color: #FFFFFF;
   margin: 20px;
   padding: 10px;
+  color: #666666;
+}
+
+.user-avg-activity-comparison {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-comparison-title {
+  margin: 0% 0% 0% 0%;
+}
+
+.comp-grid {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.activity-comparison-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.activity-comparison-bubbles {
+  height: 0;
+  padding: 45% 0% 45% 0%;
+  margin: 5%;
+  border-radius: 50%;
+  background-image: linear-gradient(to bottom right, #fb5b79 , #ff8e75);
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150%;
 }

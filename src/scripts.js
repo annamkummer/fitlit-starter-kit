@@ -17,7 +17,7 @@ const sleepChartWeek = document.querySelector('#sleepChartWeek')
 const sleepChartAvg = document.querySelector('#sleepChartAvg')
 const waterChartWeek = document.querySelector('#waterChartWeek')
 const waterChartDay = document.querySelector('#waterChartDay')
-const activityComparisonChart = document.querySelector('#userAvgActivityComparisonChart')
+const activityComparisonChart = document.querySelector('#userAvgActivityComparison')
 
 const fetchData = () => {
   return Promise.all([userData(), userSleepData(), userActivityData(), userHydrationData()])
@@ -260,45 +260,66 @@ const generateAvgSleepChart = (sleepComparisonData) => {
 }
 
 const generateActivityComparisonChart = (comp) => {
-  return new Chart(activityComparisonChart, {
-    type: 'bar',
-    data: {
-      labels: ['Steps (thousands)', 'Minutes Active', 'Stairs Climbed'],
-      datasets: [{
-        label: 'Your Entry',
-        data: [`${comp.userNumSteps / 1000}`, `${comp.userMinActive}`, `${comp.userFlights * 12}`],
-        backgroundColor: '#17D290',
-        borderColor: '#17D290'
-      }, {
-        label: 'Community Average',
-        data: [`${comp.avgNumSteps / 1000}`, `${comp.avgMinActive}`, `${comp.avgFlights * 12}`],
-        backgroundColor: '#ba4afe',
-        borderColor: '#ba4afe'
-      }],
-    },
-    options: {
-      elements: {
-        bar: {
-          borderRadius: 10,
-        }
-      },
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            pointStyle: 'rectRounded'
-          }
-        },
-        title: {
-          display: true,
-          text: 'Day/Average Comparison',
-          font: {
-            size: 20
-          }
-        }
-      }
-    }
-  })
+  const stepPercent =  Number((comp.userNumSteps / comp.avgNumSteps * 100).toFixed(0));
+  const minPercent = Number((comp.userMinActive / comp.avgMinActive * 100).toFixed(0));
+  const flightPercent = Number((comp.userFlights / comp.avgFlights * 100).toFixed(0));
+  return `
+    <h3 class="activity-comparison-title">
+      Latest Entry
+    </h3>
+    <div class="comp-grid">
+        <p class="activity-comparison-text text steps">${comp.userNumSteps}\<br>steps</p>
+        <p class="activity-comparison-text text min">${comp.userMinActive}\<br>minutes</p>
+        <p class="activity-comparison-text text flights">${comp.userFlights}\<br>flights of stairs</p>
+        <div class="activity-comparison-bubbles bubble steps">${stepPercent}%</div>
+        <div class="activity-comparison-bubbles bubble min">${minPercent}%</div>
+        <div class="activity-comparison-bubbles bubble flights">${flightPercent}%</div>
+    </div>
+    <p class="activity-comparison-footer">
+      compared to the community average
+    </p>
+  `
+
+  //
+  // return new Chart(activityComparisonChart, {
+  //   type: 'bar',
+  //   data: {
+  //     labels: ['Steps (thousands)', 'Minutes Active', 'Stairs Climbed'],
+  //     datasets: [{
+  //       label: 'Your Entry',
+  //       data: [`${comp.userNumSteps / 1000}`, `${comp.userMinActive}`, `${comp.userFlights * 12}`],
+  //       backgroundColor: '#17D290',
+  //       borderColor: '#17D290'
+  //     }, {
+  //       label: 'Community Average',
+  //       data: [`${comp.avgNumSteps / 1000}`, `${comp.avgMinActive}`, `${comp.avgFlights * 12}`],
+  //       backgroundColor: '#ba4afe',
+  //       borderColor: '#ba4afe'
+  //     }],
+  //   },
+  //   options: {
+  //     elements: {
+  //       bar: {
+  //         borderRadius: 10,
+  //       }
+  //     },
+  //     plugins: {
+  //       legend: {
+  //         labels: {
+  //           usePointStyle: true,
+  //           pointStyle: 'rectRounded'
+  //         }
+  //       },
+  //       title: {
+  //         display: true,
+  //         text: 'Day/Average Comparison',
+  //         font: {
+  //           size: 20
+  //         }
+  //       }
+  //     }
+  //   }
+  // })
 }
 
 const loadPage = (data) => {
