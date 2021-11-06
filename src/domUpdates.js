@@ -38,26 +38,26 @@ const domUpdates = {
   },
 
 generateActivityComparisonChart(comp) {
-  const stepPercent =  Number((comp.userNumSteps / comp.avgNumSteps * 100).toFixed(0));
-  const minPercent = Number((comp.userMinActive / comp.avgMinActive * 100).toFixed(0));
-  const flightPercent = Number((comp.userFlights / comp.avgFlights * 100).toFixed(0));
-  return `
-    <h3 class="activity-comparison-title">
-      Latest Entry
-    </h3>
-    <div class="comp-grid">
-        <p class="activity-comparison-text text steps">${comp.userNumSteps}\<br>steps</p>
-        <p class="activity-comparison-text text min">${comp.userMinActive}\<br>minutes</p>
-        <p class="activity-comparison-text text flights">${comp.userFlights}\<br>flights of stairs</p>
-        <div class="activity-comparison-bubbles bubble steps">${stepPercent}%</div>
-        <div class="activity-comparison-bubbles bubble min">${minPercent}%</div>
-        <div class="activity-comparison-bubbles bubble flights">${flightPercent}%</div>
-    </div>
-    <p class="activity-comparison-footer">
-      compared to the community average
-    </p>
-  `
-}
+    const stepPercent =  Number((comp.userNumSteps / comp.avgNumSteps * 100).toFixed(0));
+    const minPercent = Number((comp.userMinActive / comp.avgMinActive * 100).toFixed(0));
+    const flightPercent = Number((comp.userFlights / comp.avgFlights * 100).toFixed(0));
+    return `
+      <h3 class="activity-comparison-title">
+        Latest Entry
+      </h3>
+      <div class="comp-grid">
+          <p class="activity-comparison-text text steps">${comp.userNumSteps}\<br>steps</p>
+          <p class="activity-comparison-text text min">${comp.userMinActive}\<br>minutes</p>
+          <p class="activity-comparison-text text flights">${comp.userFlights}\<br>flights of stairs</p>
+          <div class="activity-comparison-bubbles bubble steps">${stepPercent}%</div>
+          <div class="activity-comparison-bubbles bubble min">${minPercent}%</div>
+          <div class="activity-comparison-bubbles bubble flights">${flightPercent}%</div>
+      </div>
+      <p class="activity-comparison-footer">
+        compared to the community average
+      </p>
+    `
+  }
 }
 
 export default domUpdates;
