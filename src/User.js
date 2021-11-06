@@ -17,101 +17,13 @@ class User {
   findUser(dataset) {
     return dataset.filter(element => {
       return element.userID === this.id
-    }) 
+    })
   }
 
   findUserAndDate(dataset, date) {
     return dataset.find(element => {
       return element.userID === this.id && element.date === date
-    }) 
-  }
-
-  calculateAvgOunces(hydrationData) {
-    const currentUser = this.findUser(hydrationData)
-    const avg = (currentUser.reduce((avgOunces, userHyd) => {
-      return avgOunces + userHyd.numOunces;
-    }, 0)) / currentUser.length;
-    return Number(avg.toFixed(2))
-  }
-
-  findOuncesByDate(hydrationData, date) {
-    const currentUser = this.findUserAndDate(hydrationData, date)
-    return currentUser.numOunces
-  }
-
-  findStepsByDate(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData, date)
-    return currentUser.numSteps
-  }
-
-  findFlightsByDate(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData, date)
-    return currentUser.flightsOfStairs
-  }
-
-  findOuncesByWeek(hydrationData, date) {
-    const currentUser = this.findUser(hydrationData)
-    return currentUser.reduce((ouncesPerDay, entry) => {
-      if (entry.date <= date) {
-        ouncesPerDay.push(entry);
-        if (ouncesPerDay.length > 7) {
-          ouncesPerDay.shift();
-        }
-      }
-      return ouncesPerDay;
-    }, [])
-  }
-
-  findSleepQualityByDate(sleepInfo, date) {
-    const currentUser = this.findUserAndDate(sleepInfo, date)
-    return currentUser.sleepQuality;
-  }
-
-  calculateAvgDailySleep(sleepInfo) {
-    const currentUser = this.findUser(sleepInfo)
-    const avg = (currentUser.reduce((avgDailySleep, userSleep) => {
-      return avgDailySleep + userSleep.hoursSlept;
-    }, 0)) / currentUser.length;
-    return Number(avg.toFixed(2))
-  }
-
-  calculateAvgSleepQuality(sleepInfo) {
-    const currentUser = this.findUser(sleepInfo)
-    const avg = (currentUser.reduce((avgSleepQuality, userSleep) => {
-      return avgSleepQuality + userSleep.sleepQuality;
-    }, 0)) / currentUser.length;
-    return Number(avg.toFixed(2))
-  }
-
-  findHoursSleptByDate(sleepInfo, date) {
-    const currentUser = this.findUserAndDate(sleepInfo, date)
-    return currentUser.hoursSlept
-  }
-
-  findHoursSleptByWeek(sleepInfo, date) {
-    const currentUser = this.findUser(sleepInfo, date)
-    return currentUser.reduce((hoursPerDay, entry) => {
-      if (entry.date <= date) {
-        hoursPerDay.push(entry);
-        if (hoursPerDay.length > 7) {
-          hoursPerDay.shift();
-        }
-      }
-      return hoursPerDay;
-    }, [])
-  }
-
-  findSleepQualityByWeek(sleepInfo, date) {
-    const currentUser = this.findUser(sleepInfo, date)
-    return currentUser.reduce((hoursPerDay, entry) => {
-      if (entry.date <= date) {
-        hoursPerDay.push(entry.sleepQuality);
-        if (hoursPerDay.length > 7) {
-          hoursPerDay.shift();
-        }
-      }
-      return hoursPerDay;
-    }, [])
+    })
   }
 
   findStairRecord(activityData) {
@@ -143,11 +55,6 @@ class User {
     const currentUser = this.findUserAndDate(activityData, date)
     const milesWalked = currentUser.numSteps * this.strideLength/5280;
     return Number(milesWalked.toFixed(2))
-  }
-
-  findMinsActiveByDate(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData, date)
-    return currentUser.minutesActive
   }
 
   calculateWeeklyActive(activityData, date) {

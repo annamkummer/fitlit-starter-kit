@@ -1,7 +1,9 @@
-class Hydration {
-  constructor(hydrationData) {
-    this.hydrationData = hydrationData;
-  }  
+import Sleep from './Sleep';
+
+class Hydration extends Sleep {
+  constructor(dataset) {
+    super(dataset)
+  }
 }
 
 export default Hydration;

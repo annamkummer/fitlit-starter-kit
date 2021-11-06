@@ -1,5 +1,3 @@
-
-
 export const getLatestDate = (dataset, user) => {
   return dataset.reduce((latestDate, entry) => {
     if (entry.userID === user.id && entry.date > latestDate) {
@@ -9,11 +7,11 @@ export const getLatestDate = (dataset, user) => {
   }, '')
 }
 
-export const getSleepComparison = (currentUser, sleepData, date) => {
-  const hours = currentUser.findHoursSleptByWeek(sleepData, date)[6].hoursSlept;
-  const quality = currentUser.findHoursSleptByWeek(sleepData, date)[6].sleepQuality;
-  const avgHours = currentUser.calculateAvgDailySleep(sleepData);
-  const avgQuality = currentUser.calculateAvgSleepQuality(sleepData);
+export const getSleepComparison = (currentUser, sleepData, date, currentUserSleepDataByDate) => {
+  const hours = currentUserSleepDataByDate[6].hoursSlept;
+  const quality = currentUserSleepDataByDate[6].sleepQuality;
+  const avgHours = sleepData.calculateUserAvg(currentUser, 'hoursSlept');
+  const avgQuality = sleepData.calculateUserAvg(currentUser, 'sleepQuality');
   const comparison =  {
     date,
     hoursSleptOnDate: hours,
@@ -24,13 +22,13 @@ export const getSleepComparison = (currentUser, sleepData, date) => {
   return comparison;
 }
 
-export const getActivityComparisonData = (user, userRepo, activity, date) => {
+export const getActivityComparisonData = (user, userRepo, activity, date, stepsByDate, flightsWalked, minutesActive) => {
   return   {
-    userNumSteps: user.findStepsByDate(activity, date),
+    userNumSteps: stepsByDate,
     avgNumSteps: userRepo.calculateAvgStepsTaken(activity, date),
-    userMinActive: user.findMinsActiveByDate(activity, date),
+    userMinActive: minutesActive,
     avgMinActive: userRepo.calculateAvgMinActive(activity, date),
-    userFlights: user.findFlightsByDate(activity, date),
+    userFlights: flightsWalked,
     avgFlights: userRepo.calculateAvgStairsClimbed(activity, date),
   }
 }
@@ -45,5 +43,5 @@ export const getWeeklyAvgActivityData = (user, activity, date) => {
 }
 
 export const generateRandomIndex = (dataset) => {
-  return Math.floor(Math.random() * dataset.length);
+  return Math.floor(Math.random() * dataset.length)
 }
