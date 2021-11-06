@@ -22,7 +22,7 @@ class Sleep {
         entries.push(entry);
       }
       return entries;
-    }, [])
+    }, []).reverse();
   }
 
   calculateUserAvg(user, datapoint) {
