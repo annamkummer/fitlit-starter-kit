@@ -4,10 +4,12 @@ import './images/user.png';
 import UserRepository from './UserRepository';
 import User from './User';
 import Activity from './Activity';
+import Hydration from './Hydration';
 import Sleep from './Sleep';
 import {userData, userSleepData, userActivityData, userHydrationData} from './fetch.js';
 import {getLatestDate, getSleepComparison, getActivityComparisonData, getWeeklyAvgActivityData, generateRandomIndex} from './utils.js';
-import { generateHeaderContent, generateActivityComparisonChart,  } from './domUpdates.js';
+import domUpdates from './domUpdates.js';
+import {generateStepGoalChart, generateWeekWaterChart, generateDayWaterChart, generateWeekSleepChart, generateAvgSleepChart} from './charts.js';
 
 const header = document.querySelector('#header')
 const stepGoalChart = document.querySelector('#activityChart')
@@ -16,9 +18,6 @@ const sleepChartAvg = document.querySelector('#sleepChartAvg')
 const waterChartWeek = document.querySelector('#waterChartWeek')
 const waterChartDay = document.querySelector('#waterChartDay')
 const activityComparisonChart = document.querySelector('#userAvgActivityComparison')
-
-import {generateStepGoalChart, generateWeekWaterChart, generateDayWaterChart, generateWeekSleepChart, generateAvgSleepChart} from './charts.js';
-import Hydration from './Hydration';
 
 const fetchData = () => {
   return Promise.all([userData(), userSleepData(), userActivityData(), userHydrationData()])
@@ -52,8 +51,8 @@ const loadPage = (data) => {
   const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.activityData, date);
   const weeklyActivityAverages = getWeeklyAvgActivityData(currentUser, activityData.activityData, date);
 
-  header.innerHTML = generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, weeklyActivityAverages, flightsWalked);
-  activityComparisonChart.innerHTML = generateActivityComparisonChart(activityComparisons)
+  header.innerHTML = domUpdates.generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, weeklyActivityAverages, flightsWalked);
+  activityComparisonChart.innerHTML = domUpdates.generateActivityComparisonChart(activityComparisons)
   stepGoalChart.innerHTML = generateStepGoalChart(currentUser, allUsers, stepGoalChart);
   waterChartDay.innerHTML = generateDayWaterChart(ouncesByDate, date);
   waterChartWeek.innerHTML = generateWeekWaterChart(ouncesByWeek);
