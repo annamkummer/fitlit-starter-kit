@@ -8,7 +8,7 @@ import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
-import {userData, userSleepData, userActivityData, userHydrationData} from './fetch.js';
+import {userData, userSleepData, userActivityData, userHydrationData, hydrationPost, sleepPost, activityPost} from './fetch.js';
 import {getLatestDate, getSleepComparison, getActivityComparisonData, getWeeklyAvgActivityData, generateRandomIndex} from './utils.js';
 import domUpdates from './domUpdates.js';
 import {generateStepGoalChart, generateWeekWaterChart, generateDayWaterChart, generateWeekSleepChart, generateAvgSleepChart} from './charts.js';
@@ -20,6 +20,10 @@ const sleepChartAvg = document.querySelector('#sleepChartAvg')
 const waterChartWeek = document.querySelector('#waterChartWeek')
 const waterChartDay = document.querySelector('#waterChartDay')
 const activityComparisonChart = document.querySelector('#userAvgActivityComparison')
+const hydrationForm = document.querySelector('.hydration-form');
+const sleepForm = document.querySelector('.sleep-form');
+const activityForm = document.querySelector('.activity-form');
+let currentUser1;
 
 const fetchData = () => {
   return Promise.all([userData(), userSleepData(), userActivityData(), userHydrationData()])
@@ -41,6 +45,8 @@ const loadPage = (data) => {
   const activityData = new Activity(data[2]);
   const randomIndex = generateRandomIndex(allUsers.users);
   const currentUser = new User(allUsers.users[randomIndex]);
+  currentUser1 = currentUser;
+  console.log(currentUser1);
   const date = getLatestDate(sleepData.dataset, currentUser);
   const ouncesByWeek = hydrationData.findEntriesByWeek(currentUser, date)
   const currentUserSleepDataByDate = sleepData.findEntriesByWeek(currentUser, date)
@@ -62,4 +68,44 @@ const loadPage = (data) => {
   sleepChartAvg.innerHTML = generateAvgSleepChart(sleepComparisonData);
 }
 
+
+
 window.addEventListener('load', fetchData);
+
+hydrationForm.addEventListener('submit',(e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const newHydration = {
+    userID: currentUser1.id,
+    date: formData.get('date'),
+    numOunces: Number(formData.get('numOunces'))
+  };
+  hydrationPost(newHydration);
+  e.target.reset();
+});
+
+sleepForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const newSleep = {
+    userID: currentUser1.id,
+    date: formData.get('date'),
+    hoursSlept: Number(formData.get('hoursSlept')),
+    sleepQuality: Number(formData.get('sleepQuality'))
+  };
+  sleepPost(newSleep);
+  e.target.reset();
+});
+ activityForm.addEventListener('submit', (e) => {
+   e.preventDefault();
+   const formData = new FormData(e.target);
+   const newActivity = {
+     userID: currentUser1.id,
+     date: formData.get('date'),
+     flightsOfStairs: Number(formData.get('flightsOfStairs')),
+     minutesActive: Number(formData.get('minutesActive')),
+     numSteps: Number(formData.get('numSteps'))
+   };
+   activityPost(newActivity);
+   e.target.reset();
+ })

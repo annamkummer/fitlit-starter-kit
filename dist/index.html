@@ -17,6 +17,13 @@
           <canvas class="activity-chart" id="activityChart" alt="average user activity chart"></canvas>
           <section class="user-avg-activity-comparison" id="userAvgActivityComparison">
           </section>
+          <form class="activity-form">
+            <input placeholder="YYYY/MM/DD" name="date" />
+            <input placeholder="flights of stairs" name="flightsOfStairs" />
+            <input placeholder="minutes active" name="minutesActive" />
+            <input placeholder="number of steps" name="numSteps" />
+            <input type="submit" value="Add Activity Data!">
+          </form>
         </article>
       </section>
       <section class="cards hydration">
@@ -25,6 +32,11 @@
           <canvas class="water-chart-week" id="waterChartWeek" alt="weekly user water chart"></canvas>
           <canvas class="water-chart-day" id="waterChartDay" alt="single day user water chart"></canvas>
         </article>
+        <form class="hydration-form">
+          <input placeholder="YYYY/MM/DD" name="date" />
+          <input placeholder="number of ounces" name="numOunces" />
+          <input type="submit" value="Add Hydration Data!">
+        </form>
       </section>
       <section class="cards sleep">
         <h2 class="card-header">Sleep</h2>
@@ -32,6 +44,12 @@
           <canvas class="sleep-chart-week" id="sleepChartWeek" alt="weekly user sleep chart"></canvas>
           <canvas class="sleep-chart-avg" id="sleepChartAvg" alt="average user sleep chart"></canvas>
         </article>
+        <form class="sleep-form">
+          <input placeholder="YYYY/MM/DD" name="date" />
+          <input placeholder="hours slept" name="hoursSlept" />
+          <input placeholder="sleep quality" name="sleepQuality" />
+          <input type="submit" value="Add Sleep Data!">
+        </form>
       </section>
       <script src="bundle.js"></script>
     </main>
