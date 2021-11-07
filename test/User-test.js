@@ -295,4 +295,16 @@ describe('User', () => {
     expect(user2.findStairRecord(activityData)).to.equal(37);
   })
 
+  it('should calculate weekly steps average', function() {
+    expect(user1.calculateWeeklySteps(activityData, "2019/06/21")).to.equal(8375.57);
+  })
+
+  it('should calculate weekly flights average', function() {
+    expect(user1.calculateWeeklyFlights(activityData, "2019/06/21")).to.equal(23.71);
+  })
+
+  it('should calculate weekly miles', function() {
+    expect(user1.calculateWeeklyMiles(activityData, "2019/06/21")).to.equal(6.82);
+  })
+
 });
