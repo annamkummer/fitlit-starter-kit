@@ -18,7 +18,7 @@ describe('Hydration', () => {
     expect(hydration.dataset).to.deep.equal(hydrationData);
   });
 
-  let userData, hydrationData, user1, user2, sleep;
+  let userData, hydrationData, user1, user2, hydration;
 
   beforeEach(function() {
     userData = [{
@@ -98,22 +98,22 @@ describe('Hydration', () => {
     
     user1 = new User(userData[0]);
     user2 = new User(userData[1]);
-    sleep = new Sleep(hydrationData);
+    hydration = new Hydration(hydrationData);
 
   })
 
   it('should calculate the average daily ounces consumed', function() {
-    expect(sleep.calculateUserAvg(user1, 'numOunces')).to.equal(71.13)
-    expect(sleep.calculateUserAvg(user2, 'numOunces')).to.equal(87.33)
+    expect(hydration.calculateUserAvg(user1, 'numOunces')).to.equal(71.13)
+    expect(hydration.calculateUserAvg(user2, 'numOunces')).to.equal(87.33)
   })
 
   it('should calculate fluid ounces consumed for a specific date', function() {
-    expect(sleep.findUserAndDate(user1, "2019/06/15").numOunces).to.equal(37)
-    expect(sleep.findUserAndDate(user2, "2019/06/15").numOunces).to.equal(75)
+    expect(hydration.findUserAndDate(user1, "2019/06/15").numOunces).to.equal(37)
+    expect(hydration.findUserAndDate(user2, "2019/06/15").numOunces).to.equal(75)
   })
 
   it('should return ounces consumed per day for selected week', function() {
-    expect(sleep.findEntriesByWeek(user1, "2019/06/21")).to.deep.equal([hydrationData[0], hydrationData[1], hydrationData[2], hydrationData[3], hydrationData[4], hydrationData[5], hydrationData[6]])
+    expect(hydration.findEntriesByWeek(user1, "2019/06/21")).to.deep.equal([hydrationData[0], hydrationData[1], hydrationData[2], hydrationData[3], hydrationData[4], hydrationData[5], hydrationData[6]])
   })
 
 });

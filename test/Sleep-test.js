@@ -250,14 +250,6 @@ it('should return hours slept per day for selected week', function() {
 it('should return sleep quality per day for selected week', function() {
   expect(sleep.findEntriesByWeek(user1, "2019/06/21").map(day => day.sleepQuality)).to.deep.equal([3.8, 4.3, 2.6, 3.1, 1.8, 3.0, 2.2]);
   expect(sleep.findEntriesByWeek(user1, "2019/06/22").map(day => day.sleepQuality)).to.deep.equal([4.3, 2.6, 3.1, 1.8, 3.0, 2.2, 2.9]);
-});
-
-it('should return the average sleep quality for all users', function() {
-  const userRepository = new UserRepository(userData);
-  expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
-});
-
-  
-  
+});  
 
 });

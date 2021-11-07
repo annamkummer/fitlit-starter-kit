@@ -271,62 +271,9 @@ describe('User', () => {
 
   });
 
-  // it('should calculate the average daily ounces consumed', function() {
-  //   expect(user1.calculateAvgOunces(hydrationData)).to.equal(71.13)
-  //   expect(user2.calculateAvgOunces(hydrationData)).to.equal(87.33)
-  // })
-
-  // it('should calculate fluid ounces consumed for a specific date', function() {
-  //   expect(user1.findOuncesByDate(hydrationData, "2019/06/15")).to.equal(37)
-  //   expect(user2.findOuncesByDate(hydrationData, "2019/06/15")).to.equal(75)
-  // })
-
-  // it('should return ounces consumed per day for selected week', function() {
-  //   expect(user1.findOuncesByWeek(hydrationData, "2019/06/21")).to.deep.equal([hydrationData[0], hydrationData[1], hydrationData[2], hydrationData[3], hydrationData[4], hydrationData[5], hydrationData[6]])
-  // })
-
-  // it('should calculate the average number of hours slept per day', function() {
-  //   expect(user1.calculateAvgDailySleep(sleepData)).to.equal(3.88)
-  //   expect(user2.calculateAvgDailySleep(sleepData)).to.equal(5)
-  // })
-
-  // it('should calculate the average sleep quality', function() {
-  //   expect(user1.calculateAvgSleepQuality(sleepData)).to.equal(2.96)
-  //   expect(user2.calculateAvgSleepQuality(sleepData)).to.equal(3.07)
-  // })
-
-  // it('should return hours slept for a specific date', function() {
-  //   expect(user1.findHoursSleptByDate(sleepData, "2019/06/16")).to.equal(4)
-  //   expect(user2.findHoursSleptByDate(sleepData, "2019/06/16")).to.equal(9)
-  // })
-
-  // it('should return sleep quality for a specific date', function() {
-  //   expect(user1.findSleepQualityByDate(sleepData, "2019/06/17")).to.equal(2.6);
-  //   expect(user2.findSleepQualityByDate(sleepData, "2019/06/16")).to.equal(3.1);
-  // });
-
-  // it('should return hours slept per day for selected week', function() {
-  //   expect(user1.findHoursSleptByWeek(sleepData, "2019/06/21")).to.deep.equal([sleepData[0], sleepData[1], sleepData[2], sleepData[3], sleepData[4], sleepData[5], sleepData[6]]);
-  //   expect(user1.findHoursSleptByWeek(sleepData, "2019/06/22")).to.deep.equal([sleepData[1], sleepData[2], sleepData[3], sleepData[4], sleepData[5], sleepData[6], sleepData[7]]);
-  // });
-
-  // it('should return sleep quality per day for selected week', function() {
-  //   expect(user1.findSleepQualityByWeek(sleepData, "2019/06/21")).to.deep.equal([3.8, 4.3, 2.6, 3.1, 1.8, 3.0, 2.2]);
-  //   expect(user1.findSleepQualityByWeek(sleepData, "2019/06/22")).to.deep.equal([4.3, 2.6, 3.1, 1.8, 3.0, 2.2, 2.9]);
-  // });
-
-  // it('should return the average sleep quality for all users', function() {
-  //   const userRepository = new UserRepository(userData);
-  //   expect(userRepository.calculateAvgSleepQuality(sleepData)).to.equal(2.99)
-  // });
-
   it('should return miles a user has walked based on their number of steps', function(){
     expect(user1.findMilesWalked(activityData,"2019/06/22")).to.equal(8.38)
   });
-
-  // it('should return how many minutes they were active for a given day', function(){
-  //   expect(user1.findMinsActiveByDate(activityData,"2019/06/22")).to.equal(119)
-  // });
 
   it('should return minutes active for a given week', function(){
     expect(user1.calculateWeeklyActive(activityData,"2019/06/22")).to.deep.equal(163.57);

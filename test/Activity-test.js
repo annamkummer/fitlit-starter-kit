@@ -20,7 +20,7 @@ describe('Activity', () => {
     expect(activity.dataset).to.deep.equal(activityData);
   });
 
-  let userData, activityData, user1, user2, sleep;
+  let userData, activityData, user1, user2, activity;
 
   beforeEach(function() {
     userData = [{
@@ -123,12 +123,12 @@ describe('Activity', () => {
 
     user1 = new User(userData[0]);
     user2 = new User(userData[1]);
-    sleep = new Sleep(activityData);
+    activity = new Activity(activityData);
 
   });
 
   it('should return how many minutes they were active for a given day', function(){
-    expect(sleep.findUserAndDate(user1,"2019/06/22").minutesActive).to.equal(119)
+    expect(activity.findUserAndDate(user1,"2019/06/22").minutesActive).to.equal(119)
   });
 
   it('should return minutes active for a given week', function(){
