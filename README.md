@@ -11,7 +11,7 @@ FitLit is an application that shows a user's steps, hydration, and sleep data. T
 
 After the above steps have been followed, please do the following in order to access the data from a local server:
 
-- Clone [this] (https://frontend.turing.edu/projects/Fitlit-part-two.html) repo 
+- Clone [this](https://frontend.turing.edu/projects/Fitlit-part-two.html) repo 
 - Access the root folder in your Terminal
 - Type `npm install` to install all required dependencies
 - Type `npm start` to start local server  
