@@ -49,9 +49,9 @@ const loadPage = (data) => {
   const flightsWalked = activityData.findUserAndDate(currentUser, date).flightsOfStairs
   const minutesActive = activityData.findUserAndDate(currentUser, date).minutesActive
   const sleepComparisonData = getSleepComparison(currentUser, sleepData, date, currentUserSleepDataByDate);
-  const milesWalked = currentUser.findMilesWalked(activityData.dataset, date);
+  const milesWalked = currentUser.findMilesWalked(activityData, date);
   const activityComparisons = getActivityComparisonData(currentUser, allUsers, activityData.dataset, date, stepsByDate, flightsWalked, minutesActive);
-  const weeklyActivityAverages = getWeeklyAvgActivityData(currentUser, activityData.dataset, date);
+  const weeklyActivityAverages = getWeeklyAvgActivityData(currentUser, activityData, date);
 
   header.innerHTML = domUpdates.generateHeaderContent(currentUser, stepsByDate, milesWalked, minutesActive, weeklyActivityAverages, flightsWalked);
   activityComparisonChart.innerHTML = domUpdates.generateActivityComparisonChart(activityComparisons)
