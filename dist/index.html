@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>FitLit!</title>
@@ -19,13 +19,16 @@
           <canvas class="activity-chart" id="activityChart" alt="average user activity chart"></canvas>
           <section class="user-avg-activity-comparison" id="userAvgActivityComparison">
           </section>
-          <form class="activity-form">
-            <input type="date" name="date"  min="2020-01-23" required >
-            <input placeholder="number of steps" type="number" name="numSteps" min= "0" required >
-            <input placeholder="minutes active" type="number" name="minutesActive" min="0" required >
-            <input placeholder="flights of stairs" type="number"  name="flightsOfStairs" min="0" required >
-            <input type="submit" value="Add Activity Data!">
-            <p class="status-field activity-status" id="statusField"></p>
+            <form class="activity-form form">
+              <label for="activityDate"></label>
+              <input type="date" name="date"  min="2020-01-23" id="activityDate" required >
+              <!-- <label for="activityNumSteps"></label> -->
+              <input placeholder="number of steps" type="number" name="numSteps" min= "0" required >
+              <!-- <label for="activityMinsActive"></label> -->
+              <input placeholder="minutes active" type="number" name="minutesActive" min="0" required >
+              <input placeholder="flights of stairs" type="number"  name="flightsOfStairs" min="0" required >
+              <input type="submit" value="Add Activity Data!">
+              <p class="status-field activity-status" id="statusField"></p>
           </form>
         </article>
       </section>
@@ -34,27 +37,29 @@
         <article class="content">
           <canvas class="water-chart-week" id="waterChartWeek" alt="weekly user water chart"></canvas>
           <canvas class="water-chart-day" id="waterChartDay" alt="single day user water chart"></canvas>
+          <form class="hydration-form form">
+            <label for="hydrationDate"></label>
+            <input type="date" name="date"  min="2020-01-23" id="hydrationDate"  required>
+            <input placeholder="number of ounces" type="number" name="numOunces" min="0"required >
+            <input type="submit" value="Add Hydration Data!">
+            <p class="status-field hydration-status" id="statusField"></p>
+          </form>
         </article>
-        <form class="hydration-form">
-          <input type="date" name="date"  min="2020-01-23"  required>
-          <input placeholder="number of ounces" type="number" name="numOunces" min="0"required >
-          <input type="submit" value="Add Hydration Data!">
-          <p class="status-field hydration-status" id="statusField"></p>
-        </form>
       </section>
       <section class="cards sleep">
         <h2 class="card-header">Sleep</h2>
         <article class="content" id="sleep">
           <canvas class="sleep-chart-week" id="sleepChartWeek" alt="weekly user sleep chart"></canvas>
           <canvas class="sleep-chart-avg" id="sleepChartAvg" alt="average user sleep chart"></canvas>
+          <form class="sleep-form form">
+            <label for="sleepDate"></label>
+            <input type="date" name="date" min="2020-01-23" id="sleepDate" required>
+            <input placeholder="hours slept" type="number"  name="hoursSlept" min="0" max="24" required>
+            <input placeholder="sleep quality" type="number" name="sleepQuality" max="5" required>
+            <input type="submit" value="Add Sleep Data!">
+            <p class="status-field sleep-status" id="statusField"></p>
+          </form>
         </article>
-        <form class="sleep-form">
-          <input type="date" name="date" min="2020-01-23" required>
-          <input placeholder="hours slept" type="number"  name="hoursSlept" min="0" max="24" required>
-          <input placeholder="sleep quality" type="number" name="sleepQuality" max="5"  required>
-          <input type="submit" value="Add Sleep Data!">
-          <p class="status-field sleep-status" id="statusField"></p>
-        </form>
       </section>
       <script src="bundle.js"></script>
     </main>

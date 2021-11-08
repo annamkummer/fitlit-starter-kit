@@ -23,7 +23,7 @@ const activityComparisonChart = document.querySelector('#userAvgActivityComparis
 const hydrationForm = document.querySelector('.hydration-form');
 const sleepForm = document.querySelector('.sleep-form');
 const activityForm = document.querySelector('.activity-form');
-let currentUser1, latestDate;
+let currentUser1;
 
 const fetchData = () => {
   return Promise.all([userData(), userSleepData(), userActivityData(), userHydrationData()])
@@ -47,7 +47,6 @@ const loadPage = (data) => {
   const currentUser = new User(allUsers.users[randomIndex]);
   currentUser1 = currentUser;
   const date = getLatestDate(sleepData.dataset, currentUser);
-  latestDate = date;
   const ouncesByWeek = hydrationData.findEntriesByWeek(currentUser, date)
   const currentUserSleepDataByDate = sleepData.findEntriesByWeek(currentUser, date)
   const ouncesByDate = hydrationData.findUserAndDate(currentUser, date).numOunces
