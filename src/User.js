@@ -40,7 +40,6 @@ class User {
   }
 
   findMilesWalked(activityData, date) {
-    console.log('a', activityData)
     const currentUser = activityData.findUserAndDate(this, date);
     const milesWalked = currentUser.numSteps * this.strideLength/5280;
     return Number(milesWalked.toFixed(2))
