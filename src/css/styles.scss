@@ -131,6 +131,7 @@
   @include flex-column();
   justify-content: flex-start;
   height: 80%;
+  align-items: center;
 }
 
 .sleep-chart-week, .sleep-chart-avg, .activity-chart, .water-chart-week, .water-chart-day, .user-avg-activity-comparison {
@@ -144,7 +145,6 @@
   display: flex;
   flex-direction: column;
   height: 50%;
-  /* align-items: center; */
   justify-content: center;
 }
 
@@ -179,3 +179,15 @@
   align-items: center;
   font-size: 150%;
 }
+
+.form {
+  @include flex-column();
+  width: 75%;
+  align-items: center;
+}
+
+input, {
+  width: 75%;
+}
+
+
