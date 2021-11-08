@@ -35,7 +35,8 @@ After the above steps have been followed, please do the following in order to ac
 
 ## Original Assignment:
 
-[FitLit](https://frontend.turing.edu/projects/Fitlit-part-one.html) project from Turing School of Software & Design
+[FitLit - Part One](https://frontend.turing.edu/projects/Fitlit-part-one.html) 
+[FitLit - Part Two](https://frontend.turing.edu/projects/Fitlit-part-two.html) 
 
 ## Contributors:
 
