@@ -14,20 +14,8 @@ class User {
     return firstName[0];
   }
 
-  findUser(dataset) {
-    return dataset.filter(element => {
-      return element.userID === this.id
-    })
-  }
-
-  findUserAndDate(dataset, date) {
-    return dataset.find(element => {
-      return element.userID === this.id && element.date === date
-    })
-  }
-
   findStairRecord(activityData) {
-    const currentUser = this.findUser(activityData)
+    const currentUser = activityData.findUser(this);
     return currentUser.reduce((stairRecord, entry) => {
       if (entry.flightsOfStairs > stairRecord) {
         stairRecord = entry.flightsOfStairs;
@@ -37,12 +25,12 @@ class User {
   }
 
   reachedDailyStepGoal(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData, date)
+    const currentUser = activityData.findUserAndDate(this, date);
     return (currentUser.numSteps > this.dailyStepGoal)
   }
 
   findDaysExceededStepGoal(activityData) {
-    const currentUser = this.findUser(activityData)
+    const currentUser = activityData.findUser(this);
     return currentUser.reduce((acc, entry) => {
       if (entry.numSteps > this.dailyStepGoal) {
         acc.push(entry.date)
@@ -52,13 +40,13 @@ class User {
   }
 
   findMilesWalked(activityData, date) {
-    const currentUser = this.findUserAndDate(activityData, date)
+    const currentUser = activityData.findUserAndDate(this, date);
     const milesWalked = currentUser.numSteps * this.strideLength/5280;
     return Number(milesWalked.toFixed(2))
   }
 
   calculateWeeklyActive(activityData, date) {
-    const currentUser = this.findUser(activityData)
+    const currentUser = activityData.findUser(this);
     const weeklyMins = currentUser.reduceRight((minsActive, entry) => {
       if ((entry.date <= date) && (minsActive.length < 7)) {
         minsActive.push(entry.minutesActive);
@@ -73,7 +61,7 @@ class User {
   }
 
   calculateWeeklySteps(activityData, date) {
-    const currentUser = this.findUser(activityData)
+    const currentUser = activityData.findUser(this);
     const weeklySteps = currentUser.reduceRight((steps, entry) => {
       if ((entry.date <= date) && (steps.length < 7)) {
         steps.push(entry.numSteps);
@@ -88,7 +76,7 @@ class User {
   }
 
   calculateWeeklyFlights(activityData, date) {
-    const currentUser = this.findUser(activityData)
+    const currentUser = activityData.findUser(this);
     const weeklyFlights = currentUser.reduceRight((flights, entry) => {
       if ((entry.userID === this.id) && (entry.date <= date) && (flights.length < 7)) {
         flights.push(entry.flightsOfStairs);

@@ -1,6 +1,7 @@
 import {
   expect
 } from 'chai';
+import Activity from '../src/Activity';
 import User from '../src/User';
 import UserRepository from '../src/UserRepository';
 
@@ -43,7 +44,7 @@ describe('User', () => {
     expect(user.displayFirstName()).to.equal('Luisa');
   });
 
-  let userData, hydrationData, sleepData, activityData, user1, user2;
+  let userData, hydrationData, sleepData, activityData, user1, user2, activity;
 
   beforeEach(function() {
     userData = [{
@@ -266,33 +267,34 @@ describe('User', () => {
       "flightsOfStairs": 4
     }
     ];
+    activity = new Activity(activityData);
     user1 = new User(userData[0]);
     user2 = new User(userData[1]);
 
   });
 
-  it('should return miles a user has walked based on their number of steps', function(){
-    expect(user1.findMilesWalked(activityData,"2019/06/22")).to.equal(8.38)
+  it('should return miles a user has walked based on their number of steps', function() {
+    expect(user1.findMilesWalked(activity,"2019/06/22")).to.equal(8.38)
   });
 
-  it('should return minutes active for a given week', function(){
-    expect(user1.calculateWeeklyActive(activityData,"2019/06/22")).to.deep.equal(163.57);
+  it('should return minutes active for a given week', function() {
+    expect(user1.calculateWeeklyActive(activity,"2019/06/22")).to.deep.equal(163.57);
   })
 
   it('should tell user if they reached their step goal for a specified date', function() {
-    expect(user1.reachedDailyStepGoal(activityData, "2019/06/15")).to.equal(false)
-    expect(user1.reachedDailyStepGoal(activityData, "2019/06/20")).to.equal(true)
-    expect(user2.reachedDailyStepGoal(activityData, "2019/06/17")).to.equal(true)
+    expect(user1.reachedDailyStepGoal(activity, "2019/06/15")).to.equal(false)
+    expect(user1.reachedDailyStepGoal(activity, "2019/06/20")).to.equal(true)
+    expect(user2.reachedDailyStepGoal(activity, "2019/06/17")).to.equal(true)
   })
 
   it('should provide user with a list of days their step goal was exceeded', function() {
-    expect(user1.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17", "2019/06/20", "2019/06/22"])
-    expect(user2.findDaysExceededStepGoal(activityData)).to.deep.equal(["2019/06/17"])
+    expect(user1.findDaysExceededStepGoal(activity)).to.deep.equal(["2019/06/17", "2019/06/20", "2019/06/22"])
+    expect(user2.findDaysExceededStepGoal(activity)).to.deep.equal(["2019/06/17"])
   })
 
   it('should find stair climbing record for single user', function () {
-    expect(user1.findStairRecord(activityData)).to.equal(44);
-    expect(user2.findStairRecord(activityData)).to.equal(37);
+    expect(user1.findStairRecord(activity)).to.equal(44);
+    expect(user2.findStairRecord(activity)).to.equal(37);
   })
 
   it('should calculate weekly steps average', function() {
