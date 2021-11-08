@@ -48,6 +48,7 @@ After the above steps have been followed, please do the following in order to ac
 - Able to implement Fetch API functionality and successfully import and post data from API.
 - Successful implementation of `chart.js`.
 - Followed Test-driven development principles.
+- Achieved accessibility goals
 
 ## Future Iterations:
 - User login
