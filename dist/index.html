@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@500&display=swap" rel="stylesheet">
   </head>
   <body class="body">
+
     <header class="header" id="header">
+      <h1 class="error-field" id="errorField"></h1>
     </header>
     <main class="main">
       <section class="cards activity">
@@ -18,11 +20,12 @@
           <section class="user-avg-activity-comparison" id="userAvgActivityComparison">
           </section>
           <form class="activity-form">
-            <input placeholder="YYYY/MM/DD" name="date" />
-            <input placeholder="flights of stairs" name="flightsOfStairs" />
-            <input placeholder="minutes active" name="minutesActive" />
-            <input placeholder="number of steps" name="numSteps" />
+            <input type="date" name="date"  min="2020-01-23" required >
+            <input placeholder="number of steps" type="number" name="numSteps" min= "0" required >
+            <input placeholder="minutes active" type="number" name="minutesActive" min="0" required >
+            <input placeholder="flights of stairs" type="number"  name="flightsOfStairs" min="0" required >
             <input type="submit" value="Add Activity Data!">
+            <p class="status-field activity-status" id="statusField"></p>
           </form>
         </article>
       </section>
@@ -33,9 +36,10 @@
           <canvas class="water-chart-day" id="waterChartDay" alt="single day user water chart"></canvas>
         </article>
         <form class="hydration-form">
-          <input placeholder="YYYY/MM/DD" name="date" />
-          <input placeholder="number of ounces" name="numOunces" />
+          <input type="date" name="date"  min="2020-01-23"  required>
+          <input placeholder="number of ounces" type="number" name="numOunces" min="0"required >
           <input type="submit" value="Add Hydration Data!">
+          <p class="status-field hydration-status" id="statusField"></p>
         </form>
       </section>
       <section class="cards sleep">
@@ -45,10 +49,11 @@
           <canvas class="sleep-chart-avg" id="sleepChartAvg" alt="average user sleep chart"></canvas>
         </article>
         <form class="sleep-form">
-          <input placeholder="YYYY/MM/DD" name="date" />
-          <input placeholder="hours slept" name="hoursSlept" />
-          <input placeholder="sleep quality" name="sleepQuality" />
+          <input type="date" name="date" min="2020-01-23" required>
+          <input placeholder="hours slept" type="number"  name="hoursSlept" min="0" max="24" required>
+          <input placeholder="sleep quality" type="number" name="sleepQuality" max="5"  required>
           <input type="submit" value="Add Sleep Data!">
+          <p class="status-field sleep-status" id="statusField"></p>
         </form>
       </section>
       <script src="bundle.js"></script>

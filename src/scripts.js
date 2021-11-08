@@ -23,7 +23,7 @@ const activityComparisonChart = document.querySelector('#userAvgActivityComparis
 const hydrationForm = document.querySelector('.hydration-form');
 const sleepForm = document.querySelector('.sleep-form');
 const activityForm = document.querySelector('.activity-form');
-let currentUser1;
+let currentUser1, latestDate;
 
 const fetchData = () => {
   return Promise.all([userData(), userSleepData(), userActivityData(), userHydrationData()])
@@ -46,8 +46,8 @@ const loadPage = (data) => {
   const randomIndex = generateRandomIndex(allUsers.users);
   const currentUser = new User(allUsers.users[randomIndex]);
   currentUser1 = currentUser;
-  console.log(currentUser1);
   const date = getLatestDate(sleepData.dataset, currentUser);
+  latestDate = date;
   const ouncesByWeek = hydrationData.findEntriesByWeek(currentUser, date)
   const currentUserSleepDataByDate = sleepData.findEntriesByWeek(currentUser, date)
   const ouncesByDate = hydrationData.findUserAndDate(currentUser, date).numOunces
@@ -77,7 +77,7 @@ hydrationForm.addEventListener('submit',(e) => {
   const formData = new FormData(e.target);
   const newHydration = {
     userID: currentUser1.id,
-    date: formData.get('date'),
+    date: formData.get('date').replace(/-/gi,"/"),
     numOunces: Number(formData.get('numOunces'))
   };
   hydrationPost(newHydration);
@@ -89,7 +89,7 @@ sleepForm.addEventListener('submit', (e) => {
   const formData = new FormData(e.target);
   const newSleep = {
     userID: currentUser1.id,
-    date: formData.get('date'),
+    date: formData.get('date').replace(/-/gi,"/"),
     hoursSlept: Number(formData.get('hoursSlept')),
     sleepQuality: Number(formData.get('sleepQuality'))
   };
@@ -101,10 +101,10 @@ sleepForm.addEventListener('submit', (e) => {
    const formData = new FormData(e.target);
    const newActivity = {
      userID: currentUser1.id,
-     date: formData.get('date'),
-     flightsOfStairs: Number(formData.get('flightsOfStairs')),
+     date: formData.get('date').replace(/-/gi,"/"),
+     numSteps: Number(formData.get('numSteps')),
      minutesActive: Number(formData.get('minutesActive')),
-     numSteps: Number(formData.get('numSteps'))
+     flightsOfStairs: Number(formData.get('flightsOfStairs'))
    };
    activityPost(newActivity);
    e.target.reset();
