@@ -131,8 +131,4 @@ describe('Activity', () => {
     expect(activity.findUserAndDate(user1,"2019/06/22").minutesActive).to.equal(119)
   });
 
-  it('should return minutes active for a given week', function(){
-    expect(user1.calculateWeeklyActive(activityData,"2019/06/22")).to.deep.equal(163.57);
-  })
-  
 });
