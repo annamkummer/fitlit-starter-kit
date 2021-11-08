@@ -23,6 +23,7 @@ FitLit is an application that shows a user's steps, hydration, and sleep data. T
 - Webpack
 - Fetch API
 - Chart.js
+- SASS
 
 ## Original Assignment:
 
