@@ -37,11 +37,12 @@ FitLit is an application that shows a user's steps, hydration, and sleep data. T
 - [Adam Burgess](https://github.com/aburg15)
 
 ## Team Wins:
-- Able to implement Fetch API functionality and successfully import data from API.
+- Able to implement Fetch API functionality and successfully import and post data from API.
 - Successful implementation of `chart.js`.
 - Followed Test-driven development principles.
 
 ## Future Iterations:
 - User login
 - Display user's friends
-- Allow user to add data (sleep, hydration, activities, etc.)
+- Compare data between user and friends
+- Drag and drop widgets
