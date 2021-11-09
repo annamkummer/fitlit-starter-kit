@@ -18,7 +18,7 @@ After the above steps have been followed, please do the following in order to ac
 
 ## Preview:
 
-![FitLit-gif](src/images/gif.gif)
+![FitLit-gif](src/images/new-gif.gif)
 
 ## Primary Technologies Used:
 
